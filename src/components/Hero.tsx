@@ -73,49 +73,75 @@ export default function Hero({ started }: { started: boolean }) {
 
       {/* ─── Center content ─── */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
-        {/* Medallion logo — always visible, no fade */}
+        {/* Medallion logo — large, enhanced, always visible */}
         <div
           id="hero-medallion"
-          className="relative mb-5 md:mb-6 flex items-center justify-center w-[11rem] h-[11rem] md:w-[14rem] md:h-[14rem]"
+          className="relative mb-6 md:mb-8 flex items-center justify-center"
         >
-          <div className="absolute -inset-3 rounded-full border border-white/10" />
+          {/* Outer decorative ring */}
+          <div className="absolute -inset-5 rounded-full border border-white/[0.06]" />
+          <div className="absolute -inset-5 rounded-full border border-gold/[0.08]" />
 
+          {/* Logo circle */}
           <motion.div
-            className="relative w-36 h-36 md:w-[11rem] md:h-[11rem] rounded-full overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+            className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-[15rem] md:h-[15rem] lg:w-[17rem] lg:h-[17rem] rounded-full overflow-hidden"
+            style={{
+              boxShadow: [
+                "0 0 40px rgba(0,0,0,0.4)",
+                "0 0 80px rgba(0,0,0,0.25)",
+                "0 30px 80px rgba(0,0,0,0.5)",
+                "inset 0 1px 0 rgba(255,255,255,0.1)",
+              ].join(", "),
+            }}
           >
-            <Image src="/images/logo-main.jpeg" alt="SsaRanga — The Mind Spa" fill priority sizes="176px" className="object-cover" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-black/15" />
+            <Image
+              src="/images/logo-main.jpeg"
+              alt="SsaRanga — The Mind Spa"
+              fill
+              priority
+              sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 240px, 272px"
+              className="object-cover"
+            />
+            {/* Subtle glass sheen */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.12] via-transparent to-black/[0.12]" />
           </motion.div>
         </div>
 
-        {/* Kannada wordmark — larger, always visible */}
+        {/* Kannada wordmark */}
         <div className="flex justify-center [perspective:1200px]">
           <motion.div
-            className="relative w-72 sm:w-[24rem] md:w-[32rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
+            className="relative w-80 sm:w-[26rem] md:w-[34rem] lg:w-[38rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
             initial={{ opacity: 0, y: 28, rotateX: -48, scale: 0.92 }}
             animate={stage >= 2 ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
             transition={{ duration: 1, ease: easeFlip }}
             style={{ transformPerspective: 1200 }}
           >
-            <Image src="/images/logo.png" alt="ಸಾರಂಗ — SsaRanga" fill priority sizes="(max-width: 640px) 288px, (max-width: 768px) 384px, 512px" className="object-contain" />
+            <Image
+              src="/images/logo.png"
+              alt="ಸಾರಂಗ — SsaRanga"
+              fill
+              priority
+              sizes="(max-width: 640px) 320px, (max-width: 768px) 416px, (max-width: 1024px) 544px, 608px"
+              className="object-contain"
+            />
           </motion.div>
         </div>
 
-        {/* Tagline — larger */}
+        {/* Tagline */}
         <motion.div
-          className="flex items-center justify-center gap-3 mt-6"
+          className="flex items-center justify-center gap-4 mt-7"
           initial={{ opacity: 0, y: 18 }}
           animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="h-px w-10 bg-gradient-to-r from-transparent to-gold/70" />
+          <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
           <h1
             className="text-gold text-xl md:text-2xl lg:text-3xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The Mind Spa
           </h1>
-          <span className="h-px w-10 bg-gradient-to-l from-transparent to-gold/70" />
+          <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold/60" />
         </motion.div>
       </div>
 
