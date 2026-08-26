@@ -12,39 +12,40 @@ const PHOTO_SLOTS: { src: string; x: number; y: number; w: number; h: number }[]
   { src: "/images/detail-calm.jpg", x: -1.8, y: -1.4, w: 1.3, h: 1.7 },
 ];
 
-const vertexShader = `
-  out vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
+const vertexShader = [
+  "varying vec2 vUv;",
+  "void main() {",
+  "  vUv = uv;",
+  "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
+  "}",
+].join("\n");
 
-const fragmentShader = `
-  uniform sampler2D uTex;
-  uniform float uOpacity;
-  uniform vec2 uResolution;
-  in vec2 vUv;
-  out vec4 fragColor;
-
-  float roundedBoxSDF(vec2 p, vec2 b, float r) {
-    vec2 q = abs(p) - b + vec2(r);
-    return length(max(q, 0.0)) - r;
-  }
-
-  void main() {
-    vec4 texColor = texture(uTex, vUv);
-
-    vec2 p = (vUv - 0.5) * uResolution;
-    float dist = roundedBoxSDF(p, uResolution * 0.5, 18.0);
-    float alpha = 1.0 - smoothstep(-1.0, 1.0, dist);
-
-    vec3 color = texColor.rgb;
-    color = mix(color, color * 1.06, smoothstep(0.0, 0.5, vUv.y));
-
-    fragColor = vec4(color, alpha * uOpacity);
-  }
-`;
+const fragmentShader = [
+  "precision highp float;",
+  "",
+  "uniform sampler2D uTex;",
+  "uniform float uOpacity;",
+  "uniform vec2 uResolution;",
+  "varying vec2 vUv;",
+  "",
+  "float roundedBoxSDF(vec2 p, vec2 b, float r){",
+  "  vec2 q = abs(p) - b + vec2(r);",
+  "  return length(max(q, 0.0)) - r;",
+  "}",
+  "",
+  "void main(){",
+  "  vec4 texColor = texture2D(uTex, vUv);",
+  "",
+  "  vec2 p = (vUv - 0.5) * uResolution;",
+  "  float dist = roundedBoxSDF(p, uResolution * 0.5, 18.0);",
+  "  float alpha = 1.0 - smoothstep(-1.0, 1.0, dist);",
+  "",
+  "  vec3 color = texColor.rgb;",
+  "  color = mix(color, color * 1.06, smoothstep(0.0, 0.5, vUv.y));",
+  "",
+  "  gl_FragColor = vec4(color, alpha * uOpacity);",
+  "}",
+].join("\n");
 
 function loadTexture(
   THREE: typeof import("three"),
@@ -98,7 +99,6 @@ export default function HeroFloatingScene({ active }: { active: boolean }) {
 
         const aspect = slot.w / slot.h;
         const material = new THREE.ShaderMaterial({
-          glslVersion: THREE.GLSL3,
           vertexShader,
           fragmentShader,
           uniforms: {
