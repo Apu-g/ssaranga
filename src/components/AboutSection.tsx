@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import MorphImage from "./MorphImage";
 
 export default function AboutSection({
   showHeader = true,
@@ -46,17 +47,12 @@ export default function AboutSection({
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-              <Image
-                src="/images/founder.jpg"
-                alt="Sonia Sreeraj — Founder of SsaRanga"
-                width={500}
-                height={750}
-                className="w-full h-auto object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/40 via-transparent to-transparent" />
-            </div>
+            <MorphImage
+              src="/images/founder.jpg"
+              alt="Sonia Sreeraj — Founder of SsaRanga"
+              preset="portrait"
+              parallax
+            />
 
             {/* Name label */}
             <div className="mt-6 text-center">
