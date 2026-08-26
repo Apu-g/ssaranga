@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import FilterText from "./FilterText";
 
 const cards = [
@@ -55,29 +56,22 @@ export default function WhySection() {
 
   return (
     <section id="why" className="section-padding relative overflow-hidden bg-deep-forest" ref={sectionRef}>
-      {/* CSS gradient background instead of raster image */}
+      {/* Photo background with deep-green contrast overlay */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, #0B2B26 0%, #163832 40%, #235347 70%, #0B2B26 100%)" }} />
+        <Image
+          src="/images/leaves-texture.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
         <div className="absolute inset-0 bg-deep-forest/85" />
         <div className="absolute inset-0 bg-gradient-to-b from-deep-forest via-pine/50 to-deep-forest" />
       </div>
 
-      {/* Decorative leaf-like SVG pattern */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.04]" aria-hidden="true">
-        <svg className="absolute -top-20 -right-20 w-96 h-96" viewBox="0 0 400 400" fill="none">
-          <path d="M200 50C200 50 300 150 300 250C300 320 250 370 200 380C150 370 100 320 100 250C100 150 200 50 200 50Z" stroke="#8EB69B" strokeWidth="1" />
-          <path d="M200 100V350" stroke="#8EB69B" strokeWidth="0.5" />
-          <path d="M200 150C170 180 140 200 120 220" stroke="#8EB69B" strokeWidth="0.5" />
-          <path d="M200 200C230 220 260 230 280 240" stroke="#8EB69B" strokeWidth="0.5" />
-        </svg>
-        <svg className="absolute -bottom-16 -left-16 w-72 h-72" viewBox="0 0 400 400" fill="none">
-          <circle cx="200" cy="200" r="150" stroke="#D9A94C" strokeWidth="0.5" />
-          <circle cx="200" cy="200" r="100" stroke="#D9A94C" strokeWidth="0.5" />
-          <circle cx="200" cy="200" r="50" stroke="#D9A94C" strokeWidth="0.5" />
-        </svg>
-      </div>
-
       <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Section intro */}
         <motion.div
           className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
@@ -96,6 +90,7 @@ export default function WhySection() {
           </p>
         </motion.div>
 
+        {/* Three cards */}
         <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
           {cards.map((card, i) => (
             <motion.div
@@ -122,6 +117,7 @@ export default function WhySection() {
           ))}
         </div>
 
+        {/* Closing line */}
         <motion.p
           className="pull-quote text-center text-white/90 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}

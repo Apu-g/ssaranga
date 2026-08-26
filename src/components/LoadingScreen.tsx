@@ -12,6 +12,16 @@ import {
   markIntroPlayed,
   markIntroStarted,
 } from "@/lib/intro";
+import ShaderDissolve from "./ShaderDissolve";
+
+const REVEAL_S = 1.15;
+
+/* Premium spa/nature photos cycling slowly behind the loader */
+const LOADER_PHOTOS = [
+  "/images/leaves-texture.jpg",
+  "/images/detail-calm.jpg",
+  "/images/hero-bg.jpg",
+];
 
 interface Props {
   onStart: () => void;
@@ -37,6 +47,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
   const ringARef = useRef<SVGCircleElement>(null);
   const ringBRef = useRef<SVGCircleElement>(null);
   const ringCRef = useRef<SVGCircleElement>(null);
+  const loaderContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (skip) {
@@ -72,8 +83,9 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
 
       (async () => {
         const { gsap } = await import("gsap");
-        if (!logoContainerRef.current) return;
+        if (!logoContainerRef.current || !loaderContentRef.current) return;
 
+        /* ── Measure the 3D flight target: hero medallion slot ── */
         const fromRect = logoContainerRef.current.getBoundingClientRect();
         const toEl = document.getElementById("hero-medallion");
         const toRect = toEl?.getBoundingClientRect();
@@ -96,6 +108,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
         ctx = gsap.context(() => {
           const tl = gsap.timeline();
 
+          /* ── HOLD PHASE: logo entrance + SVG ring pulses ── */
           tl.fromTo(
             logoContainerRef.current,
             { opacity: 0, scale: 0.7 },
@@ -108,6 +121,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             0
           );
 
+          // Subtle breathing glow on the logo circle during hold
           tl.fromTo(
             logoCircleRef.current,
             {
@@ -125,6 +139,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             0
           );
 
+          // Wordmark fade in
           tl.fromTo(
             wordmarkRef.current,
             { opacity: 0, y: 12 },
@@ -132,6 +147,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             0.5
           );
 
+          // Subtitle fade in
           tl.fromTo(
             subtitleRef.current,
             { opacity: 0, y: 10 },
@@ -139,6 +155,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             0.7
           );
 
+          // Shimmer bar reveal
           tl.fromTo(
             shimmerTrackRef.current,
             { opacity: 0 },
@@ -157,6 +174,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             1.0
           );
 
+          // SVG rings: gentle pulsing glow during hold phase
           tl.fromTo(
             ringARef.current,
             { attr: { r: "8%" }, opacity: 0 },
@@ -197,8 +215,10 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             1.0
           );
 
+          /* ── REVEAL PHASE: logo flies to hero + rings expand + dissolve ── */
           const revealStart = INTRO_HOLD_MS / 1000;
 
+          // Logo 3D flight to hero medallion
           tl.to(
             logoContainerRef.current,
             {
@@ -213,6 +233,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             revealStart
           );
 
+          // Settle rotation back to 0 on landing
           tl.to(
             logoContainerRef.current,
             {
@@ -224,18 +245,20 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             `>${-0.3 + LOGO_FLIGHT_MS / 1000}`
           );
 
+          // Logo fades slightly as it lands (hero takes over)
           tl.to(
             logoContainerRef.current,
             { opacity: 0, duration: 0.25, ease: "power1.out" },
             `>-0.15`
           );
 
+          // Rings: stop pulsing, expand outward and fade
           tl.to(
             ringARef.current,
             {
               attr: { r: "38%" },
               opacity: 0,
-              duration: 1.65,
+              duration: REVEAL_S + 0.5,
               ease: "power2.out",
             },
             revealStart
@@ -245,7 +268,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             {
               attr: { r: "30%" },
               opacity: 0,
-              duration: 1.5,
+              duration: REVEAL_S + 0.35,
               ease: "power2.out",
             },
             revealStart + 0.07
@@ -255,18 +278,20 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             {
               attr: { r: "22%" },
               opacity: 0,
-              duration: 1.3,
+              duration: REVEAL_S + 0.15,
               ease: "power1.out",
             },
             revealStart + 0.14
           );
 
+          // Wordmark and subtitle fade away
           tl.to(
             [wordmarkRef.current, subtitleRef.current],
             { opacity: 0, y: -18, duration: 0.4, ease: "power2.in" },
             revealStart + 0.05
           );
 
+          // Shimmer fades
           tl.to(
             shimmerTrackRef.current,
             { opacity: 0, duration: 0.3, ease: "power1.out" },
@@ -275,6 +300,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
         });
       })();
 
+      // Hand the logo off to the hero at the exact landing frame
       landT = setTimeout(
         () => setHandedOff(true),
         LOGO_FLIGHT_DELAY_MS + LOGO_FLIGHT_MS
@@ -298,18 +324,38 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] transition-opacity duration-700 ${
-        revealing ? "pointer-events-none opacity-0" : "opacity-100"
-      }`}
+      className={`fixed inset-0 z-[9999] ${revealing ? "pointer-events-none" : ""}`}
       aria-hidden="true"
     >
-      {/* Solid brand base */}
+      {/* ── Solid brand base: guarantees zero flash before photos/shader load ── */}
       <div className="absolute inset-0 bg-deep-forest" />
 
-      {/* CSS gradient backdrop — smooth, no pixel artifacts */}
-      <div className="absolute inset-0 loader-gradient-backdrop" />
+      {/* ── Premium spa/nature photo backdrop, slow Ken Burns + crossfade ── */}
+      <div className="absolute inset-0">
+        {LOADER_PHOTOS.map((src, i) => (
+          <div
+            key={src}
+            className="loader-photo absolute inset-0"
+            style={{ animationDelay: `${i * 4.5}s` }}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="100vw"
+              priority={i === 0}
+              className="ken-burns object-cover"
+            />
+          </div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-b from-deep-forest/75 via-deep-forest/60 to-deep-forest/85" />
+        <div className="absolute inset-0 hero-vignette" />
+      </div>
 
-      {/* SVG ripple rings */}
+      {/* ── WebGL noise-dissolve layer ── */}
+      {!skip && !reduced && <ShaderDissolve active={revealing} />}
+
+      {/* ── SVG ripple rings ── */}
       {!reduced && (
         <svg className="absolute inset-0 h-full w-full">
           <circle
@@ -342,9 +388,10 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
         </svg>
       )}
 
-      {/* Loader content */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* ── Loader content ── */}
+      <div ref={loaderContentRef} className="absolute inset-0 flex items-center justify-center">
         <div className="flex flex-col items-center gap-10 [perspective:1200px]">
+          {/* Logo medallion — GSAP flies it in 3D to land on the hero */}
           {!handedOff && (
             <div
               ref={logoContainerRef}
@@ -353,12 +400,15 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
                 willChange: "transform, opacity",
               }}
             >
+              {/* Pulsing rings around logo during hold */}
               <span className="loader-pulse" />
               <span className="loader-pulse loader-pulse-delayed" />
 
+              {/* Gold halo (matches hero medallion for seamless handoff) */}
               <div className="absolute -inset-3 rounded-full border border-gold/40" />
               <div className="absolute -inset-3 rounded-full bg-gold/10 blur-xl" />
 
+              {/* Logo circle — glow animated by GSAP timeline */}
               <motion.div
                 ref={logoCircleRef}
                 className="relative w-44 h-44 md:w-56 md:h-56 rounded-full overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
@@ -377,6 +427,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             </div>
           )}
 
+          {/* Wordmark + shimmer — fades away as the reveal begins */}
           <div className="flex flex-col items-center gap-3">
             <p
               ref={wordmarkRef}

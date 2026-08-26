@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import FilterText from "./FilterText";
 import MorphImage from "./MorphImage";
 
@@ -15,19 +16,15 @@ export default function AboutSection({
 
   return (
     <section id="about" className="section-padding bg-deep-forest relative overflow-hidden" ref={sectionRef}>
-      {/* Subtle CSS gradient overlay */}
-      <div className="absolute inset-0 opacity-5" style={{ background: "linear-gradient(135deg, #235347 0%, #163832 50%, #0B2B26 100%)" }} />
-
-      {/* Decorative SVG */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]" aria-hidden="true">
-        <svg className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px]" viewBox="0 0 600 600" fill="none">
-          <circle cx="300" cy="300" r="250" stroke="#D9A94C" strokeWidth="0.5" />
-          <circle cx="300" cy="300" r="200" stroke="#D9A94C" strokeWidth="0.5" />
-          <circle cx="300" cy="300" r="150" stroke="#D9A94C" strokeWidth="0.5" />
-          <circle cx="300" cy="300" r="100" stroke="#D9A94C" strokeWidth="0.5" />
-          <path d="M300 50V550" stroke="#8EB69B" strokeWidth="0.3" />
-          <path d="M50 300H550" stroke="#8EB69B" strokeWidth="0.3" />
-        </svg>
+      {/* Subtle botanical overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <Image
+          src="/images/detail-botanical.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          aria-hidden="true"
+        />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
@@ -44,6 +41,8 @@ export default function AboutSection({
         </motion.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16 items-start">
+          {/* Founder portrait — morphs from rectangle into an organic shape
+              while scrolling, with a gentle parallax drift */}
           <motion.div
             className="md:col-span-2"
             initial={{ opacity: 0, x: -30 }}
@@ -51,11 +50,13 @@ export default function AboutSection({
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <MorphImage
+              src="/images/founder.jpg"
               alt="Sonia Sreeraj — Founder of SsaRanga"
               preset="portrait"
               parallax
             />
 
+            {/* Name label */}
             <div className="mt-6 text-center">
               <p className="text-white text-xl font-light" style={{ fontFamily: "var(--font-heading)" }}>
                 Sonia Sreeraj
@@ -63,6 +64,7 @@ export default function AboutSection({
               <p className="text-sage text-sm">Founder, SsaRanga</p>
             </div>
 
+            {/* Signature-style element */}
             <div className="mt-4">
               <p
                 className="text-gold/60 text-2xl italic"
@@ -73,12 +75,14 @@ export default function AboutSection({
             </div>
           </motion.div>
 
+          {/* Story content */}
           <motion.div
             className="md:col-span-3 space-y-8"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
+            {/* Pull quote — liquid fractal filter-text moment */}
             <FilterText
               as="blockquote"
               variant="fractal"
@@ -89,6 +93,7 @@ export default function AboutSection({
               super-dynamic, vibrant world.&rdquo;
             </FilterText>
 
+            {/* Story paragraphs */}
             <div className="space-y-5 text-white/70 font-light leading-relaxed">
               <p>
                 Sonia Sreeraj is the founder of SsaRanga, a space created with a simple
@@ -141,6 +146,7 @@ export default function AboutSection({
               </p>
             </div>
 
+            {/* Vision card */}
             <div className="glass-dark rounded-2xl p-6 md:p-8 mt-8">
               <span className="label-caps text-gold/70 mb-3 block">
                 Her Vision
@@ -155,6 +161,7 @@ export default function AboutSection({
               </p>
             </div>
 
+            {/* Personal note */}
             <p className="text-white/55 text-sm font-light italic">
               For Sonia, SsaRanga is more than a programme — it is an attempt to
               create a space where people can pause, connect, reflect, grow and

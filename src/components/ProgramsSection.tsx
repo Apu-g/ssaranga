@@ -12,6 +12,7 @@ const programs = [
     subtitle: "Little Roots",
     ages: "Ages 8–18",
     desc: "Confidence, emotional awareness and communication — helping young minds slow down, release stress and grow with clarity.",
+    image: "/images/kids-program.jpg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
         <path d="M18 30V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -29,6 +30,7 @@ const programs = [
     subtitle: "Rising Roots",
     ages: "Ages 18+",
     desc: "Self-awareness, confidence, balance and personal growth — a supportive space for women to strengthen their inner potential.",
+    image: "/images/women-program.jpg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
         <path d="M18 6C12 10 10 16 14 22C16 26 18 30 18 30C18 30 20 26 22 22C26 16 24 10 18 6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -45,6 +47,7 @@ const programs = [
     subtitle: "Golden Roots",
     ages: "Ages 55+",
     desc: "Connection, engagement, purpose and joyful living — honouring the stories, strengths and experiences of elders.",
+    image: "/images/elders-program.jpg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
         <circle cx="18" cy="14" r="8" stroke="currentColor" strokeWidth="1.5" />
@@ -62,6 +65,7 @@ const programs = [
     subtitle: "Personal Sessions",
     ages: "Individual",
     desc: "Personalised guidance and reflection — quiet, focused sessions shaped entirely around the individual.",
+    image: "/images/one-to-one.jpg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
         <path d="M12 18C12 18 14 12 18 12C22 12 24 18 24 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -79,6 +83,7 @@ const programs = [
     subtitle: "Open Sessions",
     ages: "All ages",
     desc: "Focused, themed group workshops on specific skills and topics — open sessions for shared learning and growth.",
+    image: "/images/workshop.jpg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
         <circle cx="18" cy="18" r="12" stroke="currentColor" strokeWidth="1.5" />
@@ -105,6 +110,7 @@ export default function ProgramsSection({
   return (
     <section id="programs" className="section-padding bg-paper" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
+        {/* Header */}
         {showHeader && (
           <div className="text-center mb-8 md:mb-12">
             <motion.span
@@ -128,6 +134,7 @@ export default function ProgramsSection({
           </div>
         )}
 
+        {/* Showcase rows — one per program */}
         {programs.map((program, i) => {
           const flip = i % 2 === 1;
           return (
@@ -135,6 +142,7 @@ export default function ProgramsSection({
               key={program.slug}
               className="grid md:grid-cols-12 gap-10 md:gap-14 items-center py-14 md:py-24 border-b border-moss/10 last:border-b-0"
             >
+              {/* Copy */}
               <div className={`md:col-span-7 ${flip ? "md:order-2" : ""}`}>
                 <motion.div
                   initial={{ opacity: 0, y: 24 }}
@@ -181,8 +189,10 @@ export default function ProgramsSection({
                 </motion.div>
               </div>
 
+              {/* Morphing photo */}
               <div className={`md:col-span-5 ${flip ? "md:order-1" : ""}`}>
                 <MorphImage
+                  src={program.image}
                   alt={program.name}
                   preset={program.preset}
                   parallax
@@ -192,6 +202,7 @@ export default function ProgramsSection({
           );
         })}
 
+        {/* Workshops anchor */}
         <div id="workshops" className="h-0" />
       </div>
     </section>

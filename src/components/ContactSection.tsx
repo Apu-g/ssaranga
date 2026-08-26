@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const programOptions = [
   "SsaRanga Kids (8–18)",
@@ -31,9 +32,11 @@ export default function ContactSection({
     e.preventDefault();
     setFormState("sending");
 
+    // Simulate form submission (replace with actual endpoint)
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setFormState("sent");
 
+    // Reset after 3 seconds
     setTimeout(() => {
       setFormState("idle");
       setFormData({ name: "", contact: "", program: "", message: "" });
@@ -42,22 +45,22 @@ export default function ContactSection({
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden bg-deep-forest" ref={sectionRef}>
-      {/* CSS gradient background instead of raster image */}
+      {/* Photo background with deep-green contrast overlay */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{ background: "linear-gradient(155deg, #0B2B26 0%, #163832 40%, #235347 70%, #0B2B26 100%)" }} />
+        <Image
+          src="/images/detail-calm.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
         <div className="absolute inset-0 bg-deep-forest/85" />
         <div className="absolute inset-0 bg-gradient-to-b from-deep-forest via-pine/50 to-deep-forest" />
       </div>
 
-      {/* Decorative SVG */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]" aria-hidden="true">
-        <svg className="absolute bottom-0 right-0 w-80 h-80" viewBox="0 0 400 400" fill="none">
-          <path d="M200 50C200 50 320 150 320 260C320 340 260 380 200 390C140 380 80 340 80 260C80 150 200 50 200 50Z" stroke="#D9A94C" strokeWidth="0.6" />
-          <path d="M200 80V370" stroke="#D9A94C" strokeWidth="0.3" />
-        </svg>
-      </div>
-
       <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Header */}
         {showHeader && (
           <motion.div
             className="text-center mb-12 md:mb-16"
@@ -68,6 +71,7 @@ export default function ContactSection({
             <span className="label-caps text-gold mb-4 block">Get In Touch</span>
             <h2 className="text-white mb-6">Begin the Journey with SsaRanga</h2>
 
+            {/* Registration badge */}
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gold/15 border border-gold/40 backdrop-blur-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               <span className="label-caps text-gold text-xs">
@@ -83,6 +87,7 @@ export default function ContactSection({
           </motion.div>
         )}
 
+        {/* Contact card — dark glass over photo */}
         <motion.div
           className="glass-dark glass-sheen rounded-[2rem] p-8 md:p-12 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
@@ -120,6 +125,7 @@ export default function ContactSection({
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Name */}
               <div>
                 <label
                   htmlFor="name"
@@ -140,6 +146,7 @@ export default function ContactSection({
                 />
               </div>
 
+              {/* Phone / Email */}
               <div>
                 <label
                   htmlFor="contact"
@@ -160,6 +167,7 @@ export default function ContactSection({
                 />
               </div>
 
+              {/* Program interest */}
               <div>
                 <label
                   htmlFor="program"
@@ -190,6 +198,7 @@ export default function ContactSection({
                 </select>
               </div>
 
+              {/* Message */}
               <div>
                 <label
                   htmlFor="message"
@@ -209,6 +218,7 @@ export default function ContactSection({
                 />
               </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={formState === "sending"}
@@ -227,6 +237,7 @@ export default function ContactSection({
           )}
         </motion.div>
 
+        {/* Closing line */}
         <motion.p
           className="text-center text-white/60 text-sm font-light mt-10 max-w-lg mx-auto"
           initial={{ opacity: 0 }}

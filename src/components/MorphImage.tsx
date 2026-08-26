@@ -2,6 +2,11 @@
 
 import { useEffect, useId, useRef } from "react";
 
+/* Photo inside an SVG clip-path that morphs from a soft rectangle into an
+   organic shape while scrolling through the viewport (scrubbed), with an
+   optional gentle parallax drift. Path pairs adapted from
+   OnScrollPathAnimations image-clip shapes. */
+
 type Preset = "portrait" | "square" | "wide";
 
 const PRESETS: Record<Preset, { vb: [number, number]; from: string; to: string }> = {
@@ -25,20 +30,16 @@ const PRESETS: Record<Preset, { vb: [number, number]; from: string; to: string }
   },
 };
 
-const GRADIENTS: Record<Preset, string> = {
-  portrait: "linear-gradient(135deg, #235347 0%, #163832 40%, #0B2B26 100%)",
-  square: "linear-gradient(160deg, #8EB69B 0%, #235347 50%, #0B2B26 100%)",
-  wide: "linear-gradient(120deg, #163832 0%, #235347 45%, #8EB69B 100%)",
-};
-
 interface Props {
-  alt?: string;
+  src: string;
+  alt: string;
   preset?: Preset;
   className?: string;
   parallax?: boolean;
 }
 
 export default function MorphImage({
+  src,
   alt,
   preset = "portrait",
   className = "",
@@ -48,7 +49,6 @@ export default function MorphImage({
   const clipId = `morph-${rawId.replace(/:/g, "")}`;
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
-  const rectRef = useRef<SVGRectElement>(null);
 
   const { vb, from, to } = PRESETS[preset];
 
@@ -87,12 +87,12 @@ export default function MorphImage({
           }
         );
 
-        if (parallax && rectRef.current) {
+        if (parallax) {
           gsap.fromTo(
-            rectRef.current,
-            { y: 20 },
+            svg,
+            { yPercent: 5 },
             {
-              y: -20,
+              yPercent: -5,
               ease: "none",
               scrollTrigger: {
                 trigger: svg,
@@ -124,25 +124,16 @@ export default function MorphImage({
         <clipPath id={clipId}>
           <path ref={pathRef} d={from} />
         </clipPath>
-        <linearGradient id={`${clipId}-grad`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#235347" />
-          <stop offset="50%" stopColor="#163832" />
-          <stop offset="100%" stopColor="#0B2B26" />
-        </linearGradient>
       </defs>
       <g clipPath={`url(#${clipId})`}>
-        <rect
-          ref={rectRef}
+        <image
+          href={src}
           x="0"
           y="0"
           width={vb[0]}
           height={vb[1]}
-          fill={`url(#${clipId}-grad)`}
+          preserveAspectRatio="xMidYMid slice"
         />
-        {/* Decorative circles inside the morph shape */}
-        <circle cx={vb[0] * 0.3} cy={vb[1] * 0.35} r={vb[0] * 0.12} fill="rgba(142,182,155,0.15)" />
-        <circle cx={vb[0] * 0.7} cy={vb[1] * 0.6} r={vb[0] * 0.08} fill="rgba(217,169,76,0.1)" />
-        <circle cx={vb[0] * 0.5} cy={vb[1] * 0.8} r={vb[0] * 0.06} fill="rgba(255,255,255,0.05)" />
       </g>
     </svg>
   );
