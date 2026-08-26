@@ -3,8 +3,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import FilterText from "./FilterText";
-import MorphImage from "./MorphImage";
 
 export default function AboutSection({
   showHeader = true,
@@ -41,20 +39,24 @@ export default function AboutSection({
         </motion.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16 items-start">
-          {/* Founder portrait — morphs from rectangle into an organic shape
-              while scrolling, with a gentle parallax drift */}
+          {/* Founder portrait */}
           <motion.div
             className="md:col-span-2"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <MorphImage
-              src="/images/founder.jpg"
-              alt="Sonia Sreeraj — Founder of SsaRanga"
-              preset="portrait"
-              parallax
-            />
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+              <Image
+                src="/images/founder.jpg"
+                alt="Sonia Sreeraj — Founder of SsaRanga"
+                width={500}
+                height={750}
+                className="w-full h-auto object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/40 via-transparent to-transparent" />
+            </div>
 
             {/* Name label */}
             <div className="mt-6 text-center">
@@ -77,74 +79,47 @@ export default function AboutSection({
 
           {/* Story content */}
           <motion.div
-            className="md:col-span-3 space-y-8"
+            className="md:col-span-3 space-y-6"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Pull quote — liquid fractal filter-text moment */}
-            <FilterText
-              as="blockquote"
-              variant="fractal"
-              duration={2.4}
-              className="pull-quote text-white/85 text-center max-w-xl mx-auto"
-            >
-              &ldquo;To nurture the roots and make them strong enough to face a
-              super-dynamic, vibrant world.&rdquo;
-            </FilterText>
+            <p className="text-white/70 font-light leading-relaxed">
+              Sonia Sreeraj is founder of SsaRanga, a space built with a simple
+              vision — nurture minds, strengthen inner confidence, and help
+              people face life with greater clarity, resilience, and purpose.
+            </p>
 
-            {/* Story paragraphs */}
-            <div className="space-y-5 text-white/70 font-light leading-relaxed">
-              <p>
-                Sonia Sreeraj is the founder of SsaRanga, a space created with a simple
-                yet meaningful vision — to nurture minds, strengthen inner confidence,
-                and help people face an ever-changing and challenging world with greater
-                clarity and resilience.
-              </p>
+            <p className="text-white/70 font-light leading-relaxed">
+              With a B.Sc. and MBA in Marketing, Sonia brings 20+ years of
+              professional experience as an Account Manager in multinational
+              organisations. Her journey across service- and product-based
+              companies has helped her work with people from diverse backgrounds,
+              understand different perspectives, and build meaningful
+              relationships.
+            </p>
 
-              <p>
-                With a B.Sc. and MBA in Marketing, Sonia brings over 20 years of
-                professional experience as an Account Manager in a multinational
-                organisation. Her career journey across both service-based and
-                product-based organisations has given her the opportunity to work with
-                and understand people from diverse backgrounds, personalities and walks
-                of life. Building relationships, coordinating with different kinds of
-                people, and understanding their perspectives have been an important part
-                of her professional journey.
-              </p>
+            <p className="text-white/70 font-light leading-relaxed">
+              Beyond her corporate career, Sonia has developed a strong interest
+              in yoga, spirituality, life coaching, personal growth, and holistic
+              well-being. Her continuous learning through books, talks, podcasts,
+              and life-coaching experiences has deepened her understanding of the
+              human mind and emotional well-being.
+            </p>
 
-              <p>
-                Beyond her corporate career, Sonia has developed a deep personal interest
-                in yoga, spirituality, life coaching and holistic well-being. She regularly
-                explores books, podcasts, talks and learning resources related to
-                spirituality, life coaching, personal growth and healing. She has also
-                attended life coaching sessions, which have further strengthened her
-                interest in understanding the human mind and emotional well-being.
-              </p>
+            <p className="text-white/70 font-light leading-relaxed">
+              Sonia has a natural ability to listen, observe, and connect with
+              people, especially children. She believes every child carries unique
+              potential and, with right guidance, emotional support, and nurturing
+              environment, can grow into a confident individual.
+            </p>
 
-              <p>
-                One of Sonia&apos;s natural strengths is her ability to observe, listen
-                and understand people, particularly the thoughts and emotions of
-                children. She believes that every child has unique potential, and that
-                the right guidance, emotional support and nurturing environment can help
-                young minds grow with confidence. This belief became the foundation for
-                SsaRanga.
-              </p>
-
-              <p>
-                She started SsaRanga with a vision to nurture young minds at their roots
-                and help them become stronger, more confident and better prepared to face
-                the dynamic world around them. At the same time, she believes that women
-                and elders have their own unique strengths, experiences and stories that
-                deserve to be recognised and respected.
-              </p>
-
-              <p>
-                Through SsaRanga, she hopes to create a supportive space where women can
-                discover and strengthen their inner potential, while elders can feel heard,
-                valued and comfortable expressing their thoughts and experiences.
-              </p>
-            </div>
+            <p className="text-white/70 font-light leading-relaxed">
+              This belief became foundation of SsaRanga — a space created to
+              nurture young minds while also empowering women to discover their
+              inner potential and giving elders a place where their experiences,
+              thoughts, and stories are heard and valued.
+            </p>
 
             {/* Vision card */}
             <div className="glass-dark rounded-2xl p-6 md:p-8 mt-8">
@@ -155,18 +130,10 @@ export default function AboutSection({
                 className="text-white/80 text-lg md:text-xl italic font-light leading-relaxed"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                &ldquo;When we strengthen the mind at its roots, we create the
-                foundation for a more confident, compassionate and resilient
-                life.&rdquo;
+                &ldquo;Create stronger minds, confident individuals, and a more
+                supportive community.&rdquo;
               </p>
             </div>
-
-            {/* Personal note */}
-            <p className="text-white/55 text-sm font-light italic">
-              For Sonia, SsaRanga is more than a programme — it is an attempt to
-              create a space where people can pause, connect, reflect, grow and
-              rediscover their inner strength.
-            </p>
           </motion.div>
         </div>
       </div>
