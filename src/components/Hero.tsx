@@ -71,66 +71,51 @@ export default function Hero({ started }: { started: boolean }) {
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full bg-gold/[0.07] blur-[120px] pointer-events-none" />
       </div>
 
-      {/* ─── Center content — pushed below the navbar ─── */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
-        {/* Medallion — the loading logo lands exactly here in 3D */}
+      {/* ─── Center content ─── */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
+        {/* Medallion logo — always visible, no fade */}
         <div
           id="hero-medallion"
-          className="relative mb-3 md:mb-4 flex items-center justify-center w-[9rem] h-[9rem] md:w-[11rem] md:h-[11rem]"
+          className="relative mb-5 md:mb-6 flex items-center justify-center w-[11rem] h-[11rem] md:w-[14rem] md:h-[14rem]"
         >
-          <div className="absolute -inset-2.5 rounded-full border border-gold/40" />
-          <div className="absolute -inset-2.5 rounded-full bg-gold/10 blur-xl" />
+          <div className="absolute -inset-3 rounded-full border border-white/10" />
 
           <motion.div
-            className="relative w-24 h-24 md:w-[6.5rem] md:h-[6.5rem] rounded-full overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
-            initial={{ opacity: 0 }}
-            animate={
-              stage >= 2
-                ? {
-                    opacity: 1,
-                    boxShadow: [
-                      "0 0 30px rgba(217,169,76,0.12)",
-                      "0 0 55px rgba(217,169,76,0.28)",
-                      "0 0 30px rgba(217,169,76,0.12)",
-                    ],
-                  }
-                : { opacity: 0 }
-            }
-            transition={{ duration: stage >= 2 ? 3.4 : 0.5, repeat: stage >= 2 ? Infinity : 0, ease: "easeInOut" }}
+            className="relative w-36 h-36 md:w-[11rem] md:h-[11rem] rounded-full overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
           >
-            <Image src="/images/logo-main.jpeg" alt="SsaRanga — The Mind Spa" fill priority sizes="104px" className="object-cover" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-black/20" />
+            <Image src="/images/logo-main.jpeg" alt="SsaRanga — The Mind Spa" fill priority sizes="176px" className="object-cover" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-black/15" />
           </motion.div>
         </div>
 
-        {/* Kannada wordmark — cinematic flip-reveal */}
+        {/* Kannada wordmark — larger, always visible */}
         <div className="flex justify-center [perspective:1200px]">
           <motion.div
-            className="relative w-64 sm:w-[20rem] md:w-[26rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
+            className="relative w-72 sm:w-[24rem] md:w-[32rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
             initial={{ opacity: 0, y: 28, rotateX: -48, scale: 0.92 }}
             animate={stage >= 2 ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
             transition={{ duration: 1, ease: easeFlip }}
             style={{ transformPerspective: 1200 }}
           >
-            <Image src="/images/logo.png" alt="ಸಾರಂಗ — SsaRanga" fill priority sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, 416px" className="object-contain" />
+            <Image src="/images/logo.png" alt="ಸಾರಂಗ — SsaRanga" fill priority sizes="(max-width: 640px) 288px, (max-width: 768px) 384px, 512px" className="object-contain" />
           </motion.div>
         </div>
 
-        {/* Tagline */}
+        {/* Tagline — larger */}
         <motion.div
-          className="flex items-center justify-center gap-3 mt-5"
+          className="flex items-center justify-center gap-3 mt-6"
           initial={{ opacity: 0, y: 18 }}
           animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="h-px w-8 bg-gradient-to-r from-transparent to-gold/70" />
+          <span className="h-px w-10 bg-gradient-to-r from-transparent to-gold/70" />
           <h1
-            className="text-gold text-lg md:text-xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
+            className="text-gold text-xl md:text-2xl lg:text-3xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The Mind Spa
           </h1>
-          <span className="h-px w-8 bg-gradient-to-l from-transparent to-gold/70" />
+          <span className="h-px w-10 bg-gradient-to-l from-transparent to-gold/70" />
         </motion.div>
       </div>
 

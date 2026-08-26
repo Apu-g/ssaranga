@@ -79,7 +79,7 @@ export default function Navbar() {
           className="flex items-center pl-4 pr-3 py-1.5 group cursor-pointer"
           aria-label="Back to top"
         >
-          <span className="relative h-10 md:h-12 w-40 md:w-48 shrink-0">
+          <span className="relative h-12 md:h-14 w-48 md:w-56 shrink-0">
             <Image
               src="/images/logo-kannada.png"
               alt="ಸಾರಂಗ — SsaRanga"
@@ -141,7 +141,7 @@ export default function Navbar() {
         transition={{ delay: introStarted ? 0.8 : 0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
         <button onClick={() => go("top")} className="flex items-center pl-2 py-1 cursor-pointer" aria-label="Back to top">
-          <span className="relative h-8 w-32 shrink-0">
+          <span className="relative h-10 w-40 shrink-0">
             <Image
               src="/images/logo-kannada.png"
               alt="ಸಾರಂಗ — SsaRanga"
