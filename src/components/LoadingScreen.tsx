@@ -12,8 +12,6 @@ import {
   markIntroPlayed,
   markIntroStarted,
 } from "@/lib/intro";
-import ShaderDissolve from "./ShaderDissolve";
-
 const REVEAL_S = 1.15;
 
 /* Premium spa/nature photos cycling slowly behind the loader */
@@ -324,7 +322,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] ${revealing ? "pointer-events-none" : ""}`}
+      className={`fixed inset-0 z-[9999] transition-opacity duration-700 ease-in-out ${revealing ? "pointer-events-none opacity-0" : "opacity-100"}`}
       aria-hidden="true"
     >
       {/* ── Solid brand base: guarantees zero flash before photos/shader load ── */}
@@ -351,9 +349,6 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
         <div className="absolute inset-0 bg-gradient-to-b from-deep-forest/75 via-deep-forest/60 to-deep-forest/85" />
         <div className="absolute inset-0 hero-vignette" />
       </div>
-
-      {/* ── WebGL noise-dissolve layer ── */}
-      {!skip && !reduced && <ShaderDissolve active={revealing} />}
 
       {/* ── SVG ripple rings ── */}
       {!reduced && (

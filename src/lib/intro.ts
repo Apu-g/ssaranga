@@ -1,13 +1,12 @@
 // Shared intro choreography — single source of truth for LoadingScreen, Hero and Navbar.
 
 export const INTRO_HOLD_MS = 2800; // glossy screen hold before the reveal starts
-export const REVEAL_MS = 1150; // ripple rings duration
-export const DISSOLVE_MS = 2000; // WebGL noise-dissolve duration
+export const REVEAL_MS = 1150; // reveal transition duration
 export const LOGO_FLIGHT_DELAY_MS = 50; // logo starts flying shortly after hole opens
 export const LOGO_FLIGHT_MS = 450; // 3D flight duration to its hero spot
 export const LOGO_LAND_AT_MS =
   INTRO_HOLD_MS + LOGO_FLIGHT_DELAY_MS + LOGO_FLIGHT_MS; // from mount
-export const INTRO_TOTAL_MS = INTRO_HOLD_MS + DISSOLVE_MS + 250; // loader fully gone
+export const INTRO_TOTAL_MS = INTRO_HOLD_MS + REVEAL_MS + 250; // loader fully gone
 
 // Delays (ms) after "reveal started" for hero stages
 export const STAGE_MEDALLION = 0; // hero container visible immediately
