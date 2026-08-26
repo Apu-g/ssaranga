@@ -8,7 +8,6 @@ import {
   STAGE_KANNADA,
   STAGE_TAGLINE,
 } from "@/lib/intro";
-import HeroFloatingScene from "./HeroFloatingScene";
 
 const easeFlip = [0.22, 1, 0.36, 1] as const;
 
@@ -71,9 +70,6 @@ export default function Hero({ started }: { started: boolean }) {
         <div className="absolute inset-0 hero-vignette" />
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full bg-gold/[0.07] blur-[120px] pointer-events-none" />
       </div>
-
-      {/* ─── Three.js floating spa photos ─── */}
-      <HeroFloatingScene active={stage >= 3} />
 
       {/* ─── Center content — pushed below the navbar ─── */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
