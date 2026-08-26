@@ -13,9 +13,6 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import WaveSeparator from "@/components/WaveSeparator";
 
-/* One-page full-scroll experience:
-   Hero → Why → Break → Who → Programs → Offers → Journey → About → Break → Contact */
-
 export default function Home() {
   const [introStarted, setIntroStarted] = useState(false);
   const [introDone, setIntroDone] = useState(false);
@@ -34,8 +31,7 @@ export default function Home() {
       <WhySection />
 
       <SectionBreak
-        image="/images/detail-botanical.jpg"
-        alt="Hands holding green leaves in natural light"
+        variant="sage"
         quote="Creating a positive space where children can pause, reflect and grow."
         fromColor="#0B2B26"
         toColor="#FAFAF7"
@@ -58,8 +54,7 @@ export default function Home() {
       <AboutSection />
 
       <SectionBreak
-        image="/images/detail-calm.jpg"
-        alt="A moment of calm reflection"
+        variant="forest"
         quote="Calm mind · Clear thought · Confident growth"
         fromColor="#0B2B26"
         toColor="#0B2B26"

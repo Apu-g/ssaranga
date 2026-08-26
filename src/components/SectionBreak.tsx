@@ -2,20 +2,23 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { WAVE_FLAT } from "./WaveSeparator";
 
 interface Props {
-  image: string;
-  alt: string;
+  alt?: string;
   quote?: string;
-  /** Color of the section above — rendered as a wave edge overlapping the photo */
   fromColor?: string;
-  /** Color of the section below — rendered as a wave edge at the bottom */
   toColor?: string;
+  variant?: "forest" | "sage" | "moss";
 }
 
-export default function SectionBreak({ image, alt, quote, fromColor, toColor }: Props) {
+const BG_STYLES: Record<string, string> = {
+  forest: "linear-gradient(135deg, #0B2B26 0%, #163832 50%, #235347 100%)",
+  sage: "linear-gradient(135deg, #235347 0%, #8EB69B 50%, #DAF1DE 100%)",
+  moss: "linear-gradient(135deg, #163832 0%, #235347 40%, #8EB69B 100%)",
+};
+
+export default function SectionBreak({ quote, fromColor, toColor, variant = "forest" }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const pathTopRef = useRef<SVGPathElement>(null);
   const pathBotRef = useRef<SVGPathElement>(null);
@@ -23,13 +26,19 @@ export default function SectionBreak({ image, alt, quote, fromColor, toColor }: 
   return (
     <div ref={ref} className="relative overflow-hidden">
       <div className="relative h-64 md:h-80">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          className="object-cover"
+        {/* CSS gradient background instead of raster image */}
+        <div
+          className="absolute inset-0"
+          style={{ background: BG_STYLES[variant] }}
         />
-        <div className="absolute inset-0 bg-deep-forest/50" />
+        <div className="absolute inset-0 bg-deep-forest/30" />
+
+        {/* Decorative floating circles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <div className="absolute top-[20%] left-[15%] w-32 h-32 rounded-full bg-white/[0.04] blur-2xl" />
+          <div className="absolute bottom-[25%] right-[20%] w-24 h-24 rounded-full bg-gold/[0.06] blur-xl" />
+          <div className="absolute top-[60%] left-[60%] w-16 h-16 rounded-full bg-sage/[0.08] blur-lg" />
+        </div>
 
         {quote && (
           <div className="absolute inset-0 flex items-center justify-center px-6 py-16">
@@ -45,7 +54,6 @@ export default function SectionBreak({ image, alt, quote, fromColor, toColor }: 
           </div>
         )}
 
-        {/* Wave edges morphing on scroll */}
         <ScrollWaves
           containerRef={ref}
           topRef={pathTopRef}

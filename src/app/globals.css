@@ -103,7 +103,6 @@ h3 {
 
 /* ─── Glassmorphism ─── */
 
-/* Dark sections — frosted panel over photos */
 .glass-dark {
   position: relative;
   background: linear-gradient(
@@ -121,7 +120,6 @@ h3 {
     0 24px 60px rgba(0, 0, 0, 0.35);
 }
 
-/* Light sections — frosted panel with warm tint */
 .glass-light {
   position: relative;
   background: linear-gradient(
@@ -139,7 +137,6 @@ h3 {
     0 20px 50px rgba(11, 43, 38, 0.14);
 }
 
-/* Animated light sweep across glass panels */
 .glass-sheen {
   overflow: hidden;
 }
@@ -171,7 +168,6 @@ h3 {
   }
 }
 
-/* Sheen sweep on the gold CTA button (hover) */
 .cta-sheen {
   position: absolute;
   top: 0;
@@ -234,7 +230,7 @@ h3 {
   padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 6rem);
 }
 
-/* ─── Display Typography (big scroll-moment type) ─── */
+/* ─── Display Typography ─── */
 
 .display-hero {
   font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
@@ -280,20 +276,6 @@ html.lenis body {
 
 /* ─── Loading Screen ─── */
 
-/* Crossfading spa/nature photo backdrop behind the loader */
-.loader-photo {
-  opacity: 0;
-  animation: loader-photo-cycle 13.5s linear infinite;
-  will-change: opacity;
-}
-
-@keyframes loader-photo-cycle {
-  0%, 26% { opacity: 1; }
-  38%, 90% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-/* Pulsing rings around the loading logo */
 .loader-pulse {
   position: absolute;
   inset: -0.75rem;
@@ -318,22 +300,27 @@ html.lenis body {
   }
 }
 
+/* CSS gradient backdrop for loader — smooth, no pixel artifacts */
+.loader-gradient-backdrop {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(35, 83, 71, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(22, 56, 50, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(142, 182, 155, 0.08) 0%, transparent 70%);
+  animation: loader-gradient-shift 8s ease-in-out infinite alternate;
+}
+
+@keyframes loader-gradient-shift {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
 /* ─── Hero ─── */
-
-/* Slow cinematic zoom on the background photo */
-.ken-burns {
-  animation: ken-burns 26s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-@keyframes ken-burns {
-  from {
-    transform: scale(1) translateY(0);
-  }
-  to {
-    transform: scale(1.12) translateY(-1.5%);
-  }
-}
 
 .hero-vignette {
   background: radial-gradient(
@@ -341,6 +328,65 @@ html.lenis body {
     transparent 52%,
     rgba(4, 18, 15, 0.6) 100%
   );
+}
+
+/* Hero CSS gradient background */
+.hero-gradient-bg {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(35, 83, 71, 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 70%, rgba(22, 56, 50, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(142, 182, 155, 0.1) 0%, transparent 40%),
+    linear-gradient(180deg, #0B2B26 0%, #163832 40%, #0B2B26 100%);
+}
+
+/* Floating decorative orbs (replaces Three.js scene) */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.hero-orb-1 {
+  width: 280px;
+  height: 280px;
+  background: rgba(142, 182, 155, 0.08);
+  top: 15%;
+  left: 8%;
+  animation: hero-orb-float-1 12s ease-in-out infinite alternate;
+}
+
+.hero-orb-2 {
+  width: 200px;
+  height: 200px;
+  background: rgba(217, 169, 76, 0.06);
+  top: 25%;
+  right: 10%;
+  animation: hero-orb-float-2 15s ease-in-out infinite alternate;
+}
+
+.hero-orb-3 {
+  width: 160px;
+  height: 160px;
+  background: rgba(35, 83, 71, 0.1);
+  bottom: 20%;
+  left: 20%;
+  animation: hero-orb-float-3 10s ease-in-out infinite alternate;
+}
+
+@keyframes hero-orb-float-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -20px) scale(1.1); }
+}
+
+@keyframes hero-orb-float-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-25px, 15px) scale(0.95); }
+}
+
+@keyframes hero-orb-float-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -30px) scale(1.08); }
 }
 
 /* ─── Progress line for Journey ─── */
@@ -408,7 +454,11 @@ input:focus, textarea:focus, select:focus {
     transform: none;
   }
 
-  .ken-burns {
+  .hero-orb {
+    animation: none !important;
+  }
+
+  .loader-gradient-backdrop {
     animation: none;
   }
 }

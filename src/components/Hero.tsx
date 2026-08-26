@@ -8,7 +8,6 @@ import {
   STAGE_KANNADA,
   STAGE_TAGLINE,
 } from "@/lib/intro";
-import HeroFloatingScene from "./HeroFloatingScene";
 
 const easeFlip = [0.22, 1, 0.36, 1] as const;
 
@@ -61,23 +60,25 @@ export default function Hero({ started }: { started: boolean }) {
       ref={heroRef}
       className="relative h-dvh min-h-[480px] max-h-[1100px] flex items-center justify-center overflow-hidden"
     >
-      {/* ─── Background ─── */}
+      {/* Background — CSS gradient layers (no raster image) */}
       <div ref={bgRef} className="absolute inset-[-6%] will-change-transform">
-        <div className="absolute inset-0 ken-burns">
-          <Image src="/images/hero-bg.jpg" alt="" fill priority sizes="100vw" className="object-cover" aria-hidden="true" />
-        </div>
+        <div className="absolute inset-0 hero-gradient-bg" />
         <div className="absolute inset-0 bg-deep-forest/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-deep-forest/80 via-transparent to-deep-forest" />
         <div className="absolute inset-0 hero-vignette" />
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full bg-gold/[0.07] blur-[120px] pointer-events-none" />
       </div>
 
-      {/* ─── Three.js floating spa photos ─── */}
-      <HeroFloatingScene active={stage >= 3} />
+      {/* Decorative floating orbs (replaces Three.js scene) */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="hero-orb hero-orb-1" />
+        <div className="hero-orb hero-orb-2" />
+        <div className="hero-orb hero-orb-3" />
+      </div>
 
-      {/* ─── Center content — pushed below the navbar ─── */}
+      {/* Center content */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
-        {/* Medallion — the loading logo lands exactly here in 3D */}
+        {/* Medallion */}
         <div
           id="hero-medallion"
           className="relative mb-3 md:mb-4 flex items-center justify-center w-[9rem] h-[9rem] md:w-[11rem] md:h-[11rem]"
@@ -107,7 +108,7 @@ export default function Hero({ started }: { started: boolean }) {
           </motion.div>
         </div>
 
-        {/* Kannada wordmark — cinematic flip-reveal */}
+        {/* Kannada wordmark */}
         <div className="flex justify-center [perspective:1200px]">
           <motion.div
             className="relative w-64 sm:w-[20rem] md:w-[26rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"

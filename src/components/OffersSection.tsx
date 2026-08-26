@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 
 const offers = [
   {
@@ -38,21 +37,19 @@ export default function OffersSection() {
 
   return (
     <section className="section-padding bg-deep-forest relative overflow-hidden" ref={sectionRef}>
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 opacity-20">
-        <Image
-          src="/images/leaves-texture.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-          aria-hidden="true"
-        />
-      </div>
+      {/* Subtle CSS gradient texture overlay */}
+      <div className="absolute inset-0 opacity-20" style={{ background: "linear-gradient(145deg, #235347 0%, #163832 50%, #0B2B26 100%)" }} />
       <div className="absolute inset-0 bg-gradient-to-b from-deep-forest via-pine/60 to-deep-forest" />
 
+      {/* Decorative SVG pattern */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]" aria-hidden="true">
+        <svg className="absolute top-10 right-10 w-64 h-64" viewBox="0 0 300 300" fill="none">
+          <path d="M150 30C150 30 250 100 250 180C250 230 200 270 150 280C100 270 50 230 50 180C50 100 150 30 150 30Z" stroke="#8EB69B" strokeWidth="0.8" />
+          <path d="M150 60V260" stroke="#8EB69B" strokeWidth="0.4" />
+        </svg>
+      </div>
+
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Header */}
         <motion.div
           className="mb-16 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
@@ -73,7 +70,6 @@ export default function OffersSection() {
           </p>
         </motion.div>
 
-        {/* Two-column numbered glass cards */}
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 mb-16">
           {offers.map((item, i) => (
             <motion.div
@@ -107,7 +103,6 @@ export default function OffersSection() {
           ))}
         </div>
 
-        {/* Closing pill badge */}
         <motion.div
           className="flex justify-center"
           initial={{ opacity: 0, y: 20 }}
