@@ -1,26 +1,440 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─── SsaRanga Design System ─── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Color Tokens (from PRD) */
+  --color-deep-forest: #0B2B26;
+  --color-pine: #163832;
+  --color-moss: #235347;
+  --color-sage: #8EB69B;
+  --color-cream: #DAF1DE;
+  --color-paper: #FAFAF7;
+  --color-ink: #0B2B26;
+  --color-gold: #D9A94C;
+
+  /* Extended palette */
+  --color-deep-forest-light: #0f3830;
+  --color-sage-muted: #a8c8b5;
+  --color-gold-soft: #e6c77a;
+  --color-cream-warm: #f0f8f1;
+
+  /* Font families */
+  --font-heading: var(--font-cormorant);
+  --font-body: var(--font-manrope);
+
+  /* Custom easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Shadows */
+  --shadow-glass-dark: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --shadow-glass-light: 0 4px 24px rgba(11, 43, 38, 0.06);
+  --shadow-card-hover: 0 12px 40px rgba(11, 43, 38, 0.12);
+  --shadow-card: 0 2px 12px rgba(11, 43, 38, 0.06);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ─── */
+
+:root {
+  --background: #FAFAF7;
+  --foreground: #0B2B26;
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), 'Manrope', system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.12;
+}
+
+h1 {
+  font-size: clamp(2.75rem, 5vw, 4.75rem);
+  font-weight: 400;
+}
+
+h2 {
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Pull quotes */
+.pull-quote {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+}
+
+/* Small caps labels */
+.label-caps {
+  font-family: var(--font-body), 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ─── Glassmorphism ─── */
+
+/* Dark sections — frosted panel over photos */
+.glass-dark {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.09) 100%
+  );
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* Light sections — frosted panel with warm tint */
+.glass-light {
+  position: relative;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 255, 255, 0.46) 55%,
+    rgba(218, 241, 222, 0.4) 100%
+  );
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+    0 20px 50px rgba(11, 43, 38, 0.14);
+}
+
+/* Animated light sweep across glass panels */
+.glass-sheen {
+  overflow: hidden;
+}
+
+.glass-sheen::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 55%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100%
+  );
+  transform: translateX(-180%) skewX(-12deg);
+  animation: glass-sheen 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glass-sheen {
+  0%, 55% {
+    transform: translateX(-180%) skewX(-12deg);
+  }
+  90%, 100% {
+    transform: translateX(340%) skewX(-12deg);
+  }
+}
+
+/* Sheen sweep on the gold CTA button (hover) */
+.cta-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  transform: translateX(-160%) skewX(-15deg);
+  transition: transform 0.8s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.group:hover .cta-sheen {
+  transform: translateX(360%) skewX(-15deg);
+}
+
+/* ─── Link Underline Animation ─── */
+
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-gold);
+  transition: width 0.4s var(--ease-out-expo);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Card Hover ─── */
+
+.card-hover {
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+  border-color: rgba(217, 169, 76, 0.35);
+}
+
+/* ─── Section Spacing ─── */
+
+.section-padding {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 6rem);
+}
+
+/* ─── Display Typography (big scroll-moment type) ─── */
+
+.display-hero {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3.4rem, 11vw, 10rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+}
+
+.display-xl {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.9rem, 7vw, 6.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.display-lg {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5vw, 4.25rem);
+  line-height: 1.05;
+}
+
+/* ─── Lenis Smooth Scroll ─── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Loading Screen ─── */
+
+/* Crossfading spa/nature photo backdrop behind the loader */
+.loader-photo {
+  opacity: 0;
+  animation: loader-photo-cycle 13.5s linear infinite;
+  will-change: opacity;
+}
+
+@keyframes loader-photo-cycle {
+  0%, 26% { opacity: 1; }
+  38%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Pulsing rings around the loading logo */
+.loader-pulse {
+  position: absolute;
+  inset: -0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(217, 169, 76, 0.45);
+  animation: loader-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+.loader-pulse-delayed {
+  animation-delay: 1.2s;
+}
+
+@keyframes loader-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+/* ─── Hero ─── */
+
+/* Slow cinematic zoom on the background photo */
+.ken-burns {
+  animation: ken-burns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1) translateY(0);
+  }
+  to {
+    transform: scale(1.12) translateY(-1.5%);
+  }
+}
+
+.hero-vignette {
+  background: radial-gradient(
+    ellipse 95% 75% at 50% 42%,
+    transparent 52%,
+    rgba(4, 18, 15, 0.6) 100%
+  );
+}
+
+/* ─── Progress line for Journey ─── */
+
+.journey-progress-track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(142, 182, 155, 0.2);
+  transform: translateX(-50%);
+}
+
+.journey-progress-fill {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-sage), var(--color-gold));
+  transform: translateX(-50%);
+  transition: height 0.1s linear;
+}
+
+/* ─── Form Styles ─── */
+
+input, textarea, select {
+  font-family: var(--font-body), 'Manrope', sans-serif;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(217, 169, 76, 0.18);
+}
+
+/* ─── Mobile Menu ─── */
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(35, 83, 71, 0.5) 0%, transparent 60%),
+    rgba(6, 26, 22, 0.82);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+}
+
+/* ─── Reduced Motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .link-underline::after {
+    transition: none;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
+
+  .ken-burns {
+    animation: none;
+  }
+}
+
+/* ─── Scrollbar ─── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-moss);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-deep-forest);
+}
+
+/* ─── Selection ─── */
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-deep-forest);
 }
