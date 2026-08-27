@@ -96,11 +96,12 @@ export default function WhySection() {
             <motion.div
               key={card.title}
               className="glass-dark glass-sheen rounded-3xl p-8 md:p-10 card-hover"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{
-                delay: 0.2 + i * 0.08,
-                duration: 0.6,
+                delay: i * 0.12,
+                duration: 0.7,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >

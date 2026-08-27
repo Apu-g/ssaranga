@@ -72,7 +72,17 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 function StepCard({ step, index }: { step: (typeof steps)[number]; index: number }) {
   return (
-    <div className="flex flex-col items-center text-center shrink-0 w-[15rem] sm:w-[17rem]">
+    <motion.div
+      className="flex flex-col items-center text-center shrink-0 w-[15rem] sm:w-[17rem]"
+      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{
+        delay: index * 0.08,
+        duration: 0.65,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+    >
       <div className="glass-light rounded-2xl p-5 sm:p-6 card-hover w-full mb-5">
         <div className="text-moss mb-3 flex justify-center">{step.icon}</div>
         <h3 className="text-ink text-lg sm:text-xl mb-1.5">{step.title}</h3>
@@ -82,8 +92,8 @@ function StepCard({ step, index }: { step: (typeof steps)[number]; index: number
         <div className="w-1.5 h-1.5 rounded-full bg-gold" />
       </div>
       <span className="label-caps text-sage text-[0.55rem]">Step {index + 1}</span>
-    </div>
-  );
+      </motion.div>
+    );
 }
 
 export default function JourneySection() {

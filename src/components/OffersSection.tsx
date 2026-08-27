@@ -79,11 +79,12 @@ export default function OffersSection() {
             <motion.div
               key={item.num}
               className="glass-dark glass-sheen rounded-2xl p-6 md:p-7 group card-hover"
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 36, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{
-                delay: 0.15 + i * 0.08,
-                duration: 0.6,
+                delay: i * 0.1,
+                duration: 0.7,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
