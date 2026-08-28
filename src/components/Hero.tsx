@@ -58,7 +58,7 @@ export default function Hero({ started }: { started: boolean }) {
     <section
       id="home"
       ref={heroRef}
-      className="relative h-dvh min-h-[480px] max-h-[1100px] flex items-center justify-center overflow-hidden"
+      className="relative h-dvh min-h-[560px] max-h-[1100px] grid grid-rows-[auto_1fr_auto] overflow-hidden"
     >
       {/* ─── Background ─── */}
       <div ref={bgRef} className="absolute inset-[-6%] will-change-transform">
@@ -71,83 +71,85 @@ export default function Hero({ started }: { started: boolean }) {
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full bg-gold/[0.07] blur-[120px] pointer-events-none" />
       </div>
 
-      {/* ─── Center content ─── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center pt-28 md:pt-36 pb-24 md:pb-28">
-        {/* Medallion logo — large, enhanced, always visible */}
-        <div
-          id="hero-medallion"
-          className="relative mb-6 md:mb-7 flex items-center justify-center"
-        >
-          {/* Outer decorative ring */}
-          <div className="absolute -inset-5 rounded-full border border-white/[0.06]" />
-          <div className="absolute -inset-5 rounded-full border border-gold/[0.08]" />
+      {/* ─── Top spacer — clears the floating navbar ─── */}
+      <div className="relative z-10 h-[64px] md:h-[76px] lg:h-[84px]" aria-hidden="true" />
 
-          {/* Logo circle */}
-          <motion.div
-            className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-[13.5rem] md:h-[13.5rem] lg:w-60 lg:h-60 rounded-full overflow-hidden"
-            style={{
-              boxShadow: [
-                "0 0 40px rgba(0,0,0,0.4)",
-                "0 0 80px rgba(0,0,0,0.25)",
-                "0 30px 80px rgba(0,0,0,0.5)",
-                "inset 0 1px 0 rgba(255,255,255,0.1)",
-              ].join(", "),
-            }}
+      {/* ─── Center content — vertically centered between navbar & scroll ─── */}
+      <div className="relative z-10 w-full flex items-center justify-center px-6">
+        <div className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
+          {/* Medallion logo */}
+          <div
+            id="hero-medallion"
+            className="relative mb-6 md:mb-8 flex items-center justify-center"
           >
-            <Image
-              src="/images/logo-main.jpeg"
-              alt="SsaRanga — The Mind Spa"
-              fill
-              priority
-              sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, (max-width: 1024px) 216px, 240px"
-              className="object-cover"
-            />
-            {/* Subtle glass sheen */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.12] via-transparent to-black/[0.12]" />
+            <div className="absolute -inset-5 rounded-full border border-white/[0.06]" />
+            <div className="absolute -inset-5 rounded-full border border-gold/[0.08]" />
+
+            <motion.div
+              className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-[15rem] md:h-[15rem] lg:w-[17rem] lg:h-[17rem] rounded-full overflow-hidden"
+              style={{
+                boxShadow: [
+                  "0 0 40px rgba(0,0,0,0.4)",
+                  "0 0 80px rgba(0,0,0,0.25)",
+                  "0 30px 80px rgba(0,0,0,0.5)",
+                  "inset 0 1px 0 rgba(255,255,255,0.1)",
+                ].join(", "),
+              }}
+            >
+              <Image
+                src="/images/logo-main.jpeg"
+                alt="SsaRanga — The Mind Spa"
+                fill
+                priority
+                sizes="(max-width: 640px) 176px, (max-width: 768px) 208px, (max-width: 1024px) 240px, 272px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.12] via-transparent to-black/[0.12]" />
+            </motion.div>
+          </div>
+
+          {/* Kannada wordmark */}
+          <div className="flex justify-center [perspective:1200px]">
+            <motion.div
+              className="relative w-80 sm:w-[26rem] md:w-[34rem] lg:w-[38rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
+              initial={{ opacity: 0, y: 28, rotateX: -48, scale: 0.92 }}
+              animate={stage >= 2 ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
+              transition={{ duration: 1, ease: easeFlip }}
+              style={{ transformPerspective: 1200 }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt="ಸಾರಂಗ — SsaRanga"
+                fill
+                priority
+                sizes="(max-width: 640px) 320px, (max-width: 768px) 416px, (max-width: 1024px) 544px, 608px"
+                className="object-contain"
+              />
+            </motion.div>
+          </div>
+
+          {/* Tagline */}
+          <motion.div
+            className="flex items-center justify-center gap-4 mt-6 md:mt-7"
+            initial={{ opacity: 0, y: 18 }}
+            animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
+            <h1
+              className="text-gold text-lg md:text-2xl lg:text-[1.7rem] font-light tracking-[0.3em] uppercase whitespace-nowrap"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              The Mind Spa
+            </h1>
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold/60" />
           </motion.div>
         </div>
-
-        {/* Kannada wordmark */}
-        <div className="flex justify-center [perspective:1200px]">
-          <motion.div
-            className="relative w-72 sm:w-[24rem] md:w-[31rem] lg:w-[35rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
-            initial={{ opacity: 0, y: 28, rotateX: -48, scale: 0.92 }}
-            animate={stage >= 2 ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
-            transition={{ duration: 1, ease: easeFlip }}
-            style={{ transformPerspective: 1200 }}
-          >
-            <Image
-              src="/images/logo.png"
-              alt="ಸಾರಂಗ — SsaRanga"
-              fill
-              priority
-              sizes="(max-width: 640px) 288px, (max-width: 768px) 384px, (max-width: 1024px) 496px, 560px"
-              className="object-contain"
-            />
-          </motion.div>
-        </div>
-
-        {/* Tagline */}
-        <motion.div
-          className="flex items-center justify-center gap-4 mt-6 md:mt-7"
-          initial={{ opacity: 0, y: 18 }}
-          animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
-          <h1
-            className="text-gold text-lg md:text-2xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            The Mind Spa
-          </h1>
-          <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold/60" />
-        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* ─── Scroll indicator — own reserved row, never overlaps ─── */}
       <motion.div
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        className="relative z-10 flex flex-col items-center gap-2 pb-7"
         initial={{ opacity: 0 }}
         animate={stage >= 3 ? { opacity: 1 } : {}}
         transition={{ duration: 1 }}
