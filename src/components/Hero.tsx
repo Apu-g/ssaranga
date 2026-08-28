@@ -72,7 +72,7 @@ export default function Hero({ started }: { started: boolean }) {
       </div>
 
       {/* ─── Center content ─── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center pt-14 md:pt-16 pb-16 md:pb-20">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center pt-28 md:pt-36 pb-24 md:pb-28">
         {/* Medallion logo — large, enhanced, always visible */}
         <div
           id="hero-medallion"
@@ -84,7 +84,7 @@ export default function Hero({ started }: { started: boolean }) {
 
           {/* Logo circle */}
           <motion.div
-            className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-[15rem] md:h-[15rem] lg:w-[17rem] lg:h-[17rem] rounded-full overflow-hidden"
+            className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-[13.5rem] md:h-[13.5rem] lg:w-60 lg:h-60 rounded-full overflow-hidden"
             style={{
               boxShadow: [
                 "0 0 40px rgba(0,0,0,0.4)",
@@ -99,7 +99,7 @@ export default function Hero({ started }: { started: boolean }) {
               alt="SsaRanga — The Mind Spa"
               fill
               priority
-              sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 240px, 272px"
+              sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, (max-width: 1024px) 216px, 240px"
               className="object-cover"
             />
             {/* Subtle glass sheen */}
@@ -110,7 +110,7 @@ export default function Hero({ started }: { started: boolean }) {
         {/* Kannada wordmark */}
         <div className="flex justify-center [perspective:1200px]">
           <motion.div
-            className="relative w-80 sm:w-[26rem] md:w-[34rem] lg:w-[38rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
+            className="relative w-72 sm:w-[24rem] md:w-[31rem] lg:w-[35rem] aspect-[1046/456] drop-shadow-[0_14px_35px_rgba(0,0,0,0.5)] origin-top"
             initial={{ opacity: 0, y: 28, rotateX: -48, scale: 0.92 }}
             animate={stage >= 2 ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
             transition={{ duration: 1, ease: easeFlip }}
@@ -121,7 +121,7 @@ export default function Hero({ started }: { started: boolean }) {
               alt="ಸಾರಂಗ — SsaRanga"
               fill
               priority
-              sizes="(max-width: 640px) 320px, (max-width: 768px) 416px, (max-width: 1024px) 544px, 608px"
+              sizes="(max-width: 640px) 288px, (max-width: 768px) 384px, (max-width: 1024px) 496px, 560px"
               className="object-contain"
             />
           </motion.div>
@@ -129,7 +129,7 @@ export default function Hero({ started }: { started: boolean }) {
 
         {/* Tagline */}
         <motion.div
-          className="flex items-center justify-center gap-4 mt-5"
+          className="flex items-center justify-center gap-4 mt-6 md:mt-7"
           initial={{ opacity: 0, y: 18 }}
           animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -147,7 +147,7 @@ export default function Hero({ started }: { started: boolean }) {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-10"
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         initial={{ opacity: 0 }}
         animate={stage >= 3 ? { opacity: 1 } : {}}
         transition={{ duration: 1 }}
