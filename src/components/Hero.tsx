@@ -72,7 +72,7 @@ export default function Hero({ started }: { started: boolean }) {
       </div>
 
       {/* ─── Center content ─── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-20 md:pt-24">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-14 md:pt-16 pb-16 md:pb-20">
         {/* Medallion logo — large, enhanced, always visible */}
         <div
           id="hero-medallion"
@@ -129,7 +129,7 @@ export default function Hero({ started }: { started: boolean }) {
 
         {/* Tagline */}
         <motion.div
-          className="flex items-center justify-center gap-4 mt-7"
+          className="flex items-center justify-center gap-4 mt-5"
           initial={{ opacity: 0, y: 18 }}
           animate={stage >= 3 ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -147,13 +147,13 @@ export default function Hero({ started }: { started: boolean }) {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-10"
         initial={{ opacity: 0 }}
         animate={stage >= 3 ? { opacity: 1 } : {}}
         transition={{ duration: 1 }}
       >
         <span className="text-white/40 text-[0.6rem] tracking-[0.35em] uppercase label-caps">Scroll</span>
-        <div className="w-px h-8 bg-white/15 rounded-full overflow-hidden">
+        <div className="w-px h-6 bg-white/15 rounded-full overflow-hidden">
           <motion.div
             className="w-full bg-gradient-to-b from-gold to-transparent rounded-full"
             animate={{ height: ["0%", "100%", "0%"] }}

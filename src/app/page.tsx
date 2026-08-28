@@ -10,6 +10,7 @@ import ProgramsSection from "@/components/ProgramsSection";
 import OffersSection from "@/components/OffersSection";
 import JourneySection from "@/components/JourneySection";
 import AboutSection from "@/components/AboutSection";
+import SpaGallerySection from "@/components/SpaGallerySection";
 import ContactSection from "@/components/ContactSection";
 import WaveSeparator from "@/components/WaveSeparator";
 
@@ -56,6 +57,8 @@ export default function Home() {
       <WaveSeparator from="#DAF1DE" to="#0B2B26" />
 
       <AboutSection />
+
+      <SpaGallerySection />
 
       <SectionBreak
         image="/images/detail-calm.jpg"

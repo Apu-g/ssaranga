@@ -63,7 +63,7 @@ export default function Navbar() {
     <>
       {/* ─── Desktop floating pill nav — neumorphism + glassmorphism ─── */}
       <motion.div
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-0.5 rounded-full px-1.5 py-1 border border-white/[0.08]"
+        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-1.5 rounded-full px-2 py-1.5 border border-white/[0.08]"
         style={{
           background: "linear-gradient(135deg, rgba(11,43,38,0.75) 0%, rgba(6,30,26,0.82) 100%)",
           backdropFilter: "blur(32px) saturate(180%)",
@@ -85,7 +85,7 @@ export default function Navbar() {
           className="flex items-center pl-3 pr-2 py-1 group cursor-pointer"
           aria-label="Back to top"
         >
-          <span className="relative h-14 md:h-16 w-52 md:w-60 shrink-0">
+          <span className="relative h-14 md:h-16 w-44 md:w-52 shrink-0">
             <Image
               src="/images/logo-kannada.png"
               alt="ಸಾರಂಗ — SsaRanga"
@@ -98,14 +98,14 @@ export default function Navbar() {
         </button>
 
         {/* Divider */}
-        <div className="w-px h-4 bg-white/10 shrink-0" />
+        <div className="w-px h-4 bg-white/10 shrink-0 mx-0.5" />
 
         {/* Nav links */}
         {navLinks.map((link) => (
           <button
             key={link.id}
             onClick={() => go(link.id)}
-            className={`label-caps text-[0.6rem] md:text-[0.65rem] px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+            className={`label-caps text-[0.68rem] md:text-[0.72rem] px-4 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer ${
               active === link.id
                 ? "text-gold bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                 : "text-white/65 hover:text-gold hover:bg-white/[0.05]"
@@ -116,12 +116,12 @@ export default function Navbar() {
         ))}
 
         {/* Divider */}
-        <div className="w-px h-4 bg-white/10 shrink-0" />
+        <div className="w-px h-4 bg-white/10 shrink-0 mx-0.5" />
 
         {/* CTA */}
         <button
           onClick={() => go("contact")}
-          className="px-4 py-1.5 rounded-full bg-gold/90 text-deep-forest text-[0.65rem] font-semibold tracking-wide hover:bg-gold transition-all duration-300 shadow-[0_2px_12px_rgba(217,169,76,0.3)] hover:shadow-[0_4px_20px_rgba(217,169,76,0.45)] cursor-pointer"
+          className="ml-1 px-6 py-2 rounded-full bg-gold/90 text-deep-forest text-[0.68rem] font-semibold tracking-wide hover:bg-gold transition-all duration-300 shadow-[0_2px_12px_rgba(217,169,76,0.3)] hover:shadow-[0_4px_20px_rgba(217,169,76,0.45)] cursor-pointer"
         >
           Enquire
         </button>

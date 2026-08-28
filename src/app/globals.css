@@ -390,6 +390,42 @@ input:focus, textarea:focus, select:focus {
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
 
+/* ─── Spa Gallery Marquee ─── */
+
+.spa-marquee-row {
+  width: 100%;
+  overflow: hidden;
+}
+
+.spa-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: spa-marquee-scroll 46s linear infinite;
+}
+
+.spa-marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+.spa-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.spa-marquee-group {
+  display: flex;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@keyframes spa-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ─── Reduced Motion ─── */
 
 @media (prefers-reduced-motion: reduce) {
