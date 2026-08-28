@@ -112,19 +112,8 @@ export default function Navbar() {
             }`}
           >
             {link.label}
-          </button>
-        ))}
-
-        {/* Divider */}
-        <div className="w-px h-4 bg-white/10 shrink-0 mx-0.5" />
-
-        {/* CTA */}
-        <button
-          onClick={() => go("contact")}
-          className="ml-1 px-6 py-2 rounded-full bg-gold/90 text-deep-forest text-[0.68rem] font-semibold tracking-wide hover:bg-gold transition-all duration-300 shadow-[0_2px_12px_rgba(217,169,76,0.3)] hover:shadow-[0_4px_20px_rgba(217,169,76,0.45)] cursor-pointer"
-        >
-          Enquire
-        </button>
+</button>
+      ))}
       </motion.div>
 
       {/* ─── Mobile floating pill — neumorphism + glassmorphism ─── */}
@@ -211,18 +200,6 @@ export default function Navbar() {
                   </button>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.4 }}
-              >
-                <button
-                  onClick={() => go("contact")}
-                  className="mt-5 px-9 py-3.5 rounded-full bg-gold text-deep-forest font-semibold text-lg cursor-pointer"
-                >
-                  Enquire Now
-                </button>
-              </motion.div>
             </nav>
           </motion.div>
         )}
