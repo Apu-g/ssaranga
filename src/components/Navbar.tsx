@@ -65,14 +65,14 @@ export default function Navbar() {
       <motion.div
         className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-1.5 rounded-full px-2 py-1.5 border border-white/[0.08]"
         style={{
-          background: "linear-gradient(135deg, rgba(11,43,38,0.75) 0%, rgba(6,30,26,0.82) 100%)",
-          backdropFilter: "blur(32px) saturate(180%)",
-          WebkitBackdropFilter: "blur(32px) saturate(180%)",
+          background: "linear-gradient(135deg, rgba(35,83,71,0.35) 0%, rgba(22,56,50,0.5) 60%, rgba(11,43,38,0.6) 100%)",
+          backdropFilter: "blur(24px) saturate(200%)",
+          WebkitBackdropFilter: "blur(24px) saturate(200%)",
           boxShadow: [
-            "0 8px 32px rgba(0,0,0,0.35)",
-            "inset 0 1px 0 rgba(255,255,255,0.1)",
-            "inset 0 -1px 0 rgba(0,0,0,0.2)",
-            "0 0 0 1px rgba(255,255,255,0.03)",
+            "0 8px 32px rgba(0,0,0,0.3)",
+            "inset 0 1px 0 rgba(255,255,255,0.16)",
+            "inset 0 -1px 0 rgba(0,0,0,0.15)",
+            "0 0 0 1px rgba(233,247,236,0.14)",
           ].join(", "),
         }}
         initial={{ y: -80, opacity: 0 }}
@@ -120,13 +120,14 @@ export default function Navbar() {
       <motion.div
         className="fixed top-3 left-3 right-3 z-50 md:hidden flex items-center justify-between rounded-full px-3 py-2 border border-white/[0.08]"
         style={{
-          background: "linear-gradient(135deg, rgba(11,43,38,0.78) 0%, rgba(6,30,26,0.85) 100%)",
-          backdropFilter: "blur(32px) saturate(180%)",
-          WebkitBackdropFilter: "blur(32px) saturate(180%)",
+          background: "linear-gradient(135deg, rgba(35,83,71,0.38) 0%, rgba(22,56,50,0.5) 60%, rgba(11,43,38,0.6) 100%)",
+          backdropFilter: "blur(24px) saturate(200%)",
+          WebkitBackdropFilter: "blur(24px) saturate(200%)",
           boxShadow: [
-            "0 8px 32px rgba(0,0,0,0.35)",
-            "inset 0 1px 0 rgba(255,255,255,0.1)",
-            "inset 0 -1px 0 rgba(0,0,0,0.2)",
+            "0 8px 32px rgba(0,0,0,0.3)",
+            "inset 0 1px 0 rgba(255,255,255,0.16)",
+            "inset 0 -1px 0 rgba(0,0,0,0.15)",
+            "0 0 0 1px rgba(233,247,236,0.14)",
           ].join(", "),
         }}
         initial={{ y: -80, opacity: 0 }}

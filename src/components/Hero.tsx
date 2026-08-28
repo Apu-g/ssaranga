@@ -72,11 +72,11 @@ export default function Hero({ started }: { started: boolean }) {
       </div>
 
       {/* ─── Center content ─── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-14 md:pt-16 pb-16 md:pb-20">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center pt-14 md:pt-16 pb-16 md:pb-20">
         {/* Medallion logo — large, enhanced, always visible */}
         <div
           id="hero-medallion"
-          className="relative mb-6 md:mb-8 flex items-center justify-center"
+          className="relative mb-6 md:mb-7 flex items-center justify-center"
         >
           {/* Outer decorative ring */}
           <div className="absolute -inset-5 rounded-full border border-white/[0.06]" />
@@ -136,7 +136,7 @@ export default function Hero({ started }: { started: boolean }) {
         >
           <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
           <h1
-            className="text-gold text-xl md:text-2xl lg:text-3xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
+            className="text-gold text-lg md:text-2xl font-light tracking-[0.3em] uppercase whitespace-nowrap"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The Mind Spa
