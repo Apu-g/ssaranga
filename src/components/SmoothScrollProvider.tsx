@@ -19,6 +19,27 @@ const NAV_OFFSET = -76; // clear the fixed navbar
 export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<LenisLike | null>(null);
 
+  /* Always start the site at the top (home) on a fresh load.
+     Disable the browser's scroll-restoration so a reload doesn't
+     leave the user mid-page — it restarts from the hero instead. */
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    if (typeof requestAnimationFrame === "function") {
+      const raf = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, []);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
