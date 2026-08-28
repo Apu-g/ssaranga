@@ -72,7 +72,7 @@ export default function Hero({ started }: { started: boolean }) {
       </div>
 
       {/* ─── Top spacer — clears the floating navbar ─── */}
-      <div className="relative z-10 h-[64px] md:h-[76px] lg:h-[84px]" aria-hidden="true" />
+      <div className="relative z-10 h-[68px] md:h-[88px] lg:h-[96px]" aria-hidden="true" />
 
       {/* ─── Center content — vertically centered between navbar & scroll ─── */}
       <div className="relative z-10 w-full flex items-center justify-center px-6">

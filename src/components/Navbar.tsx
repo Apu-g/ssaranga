@@ -85,12 +85,12 @@ export default function Navbar() {
           className="flex items-center pl-3 pr-2 py-1 group cursor-pointer"
           aria-label="Back to top"
         >
-          <span className="relative h-16 md:h-20 w-56 md:w-72 shrink-0">
+          <span className="relative h-14 md:h-[3.25rem] w-48 md:w-60 shrink-0">
             <Image
               src="/images/logo-kannada.png"
               alt="ಸಾರಂಗ — SsaRanga"
               fill
-              sizes="288px"
+              sizes="240px"
               className="object-contain object-left drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
               priority
             />
