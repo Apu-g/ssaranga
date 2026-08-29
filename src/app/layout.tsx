@@ -5,7 +5,6 @@ import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import SvgFilterDefs from "@/components/SvgFilterDefs";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -60,7 +59,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
-          <WhatsAppButton />
         </SmoothScrollProvider>
       </body>
     </html>

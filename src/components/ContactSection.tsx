@@ -13,7 +13,7 @@ const programOptions = [
   "General Enquiry",
 ];
 
-const WHATSAPP_NUMBER = "9180168155";
+const WHATSAPP_NUMBER = "9008480197";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi SsaRanga! I'd like to know more about your programs."
 )}`;
