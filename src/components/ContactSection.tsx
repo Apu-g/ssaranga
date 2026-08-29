@@ -299,25 +299,6 @@ export default function ContactSection({
         </motion.p>
       </div>
     </section>
-
-    {/* Floating WhatsApp bubble — mobile only */}
-    <motion.a
-      href={WHATSAPP_LINK}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with SsaRanga on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 md:hidden flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_28px_rgba(37,211,102,0.45)]"
-      initial={{ opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <motion.span
-        className="absolute inset-0 rounded-full bg-[#25D366]"
-        animate={{ scale: [1, 1.28], opacity: [0.5, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
-      />
-      <WhatsAppIcon className="relative z-10 h-7 w-7" />
-    </motion.a>
     </>
   );
 }
