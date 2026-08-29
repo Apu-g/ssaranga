@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import InstagramIcon from "@/components/InstagramIcon";
 
 const programOptions = [
   "SsaRanga Kids (8–18)",
@@ -255,21 +256,33 @@ export default function ContactSection({
               </button>
             </form>
 
-            {/* WhatsApp — divider + inline button (desktop) */}
+            {/* WhatsApp / Instagram — divider + inline buttons */}
             <div className="flex items-center gap-3 my-6">
               <span className="h-px flex-1 bg-white/10" />
               <span className="label-caps text-white/40 text-[0.6rem]">or</span>
               <span className="h-px flex-1 bg-white/10" />
             </div>
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-[#1ebe5b] hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <WhatsAppIcon className="h-5 w-5" />
-              Chat on WhatsApp
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-[#1ebe5b] hover:shadow-lg hover:-translate-y-0.5"
+              >
+                <WhatsAppIcon className="h-5 w-5" />
+                Chat on WhatsApp
+              </a>
+              <a
+                href="https://www.instagram.com/ssaranga_mindspa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow SsaRanga on Instagram"
+                className="flex w-full items-center justify-center gap-2.5 rounded-full bg-white/10 border border-white/20 py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-white/20 hover:shadow-lg hover:-translate-y-0.5"
+              >
+                <InstagramIcon className="h-5 w-5" />
+                Follow on Instagram
+              </a>
+            </div>
             </>
           )}
         </motion.div>
