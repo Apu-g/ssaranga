@@ -12,10 +12,10 @@ export default function WhatsAppButton() {
         Chat with us
       </span>
 
-      {/* Pulsing ring */}
-      <span className="absolute inset-0 -z-10 rounded-full bg-green-500/60 animate-ping" />
+      {/* Soft glow */}
+      <span className="absolute inset-0 -z-10 rounded-full bg-[#25D366]/30 blur-xl" />
 
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-green-900/30 transition-transform duration-300 group-hover:scale-110">
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[0_0_18px_rgba(37,211,102,0.55)] transition-transform duration-300 group-hover:scale-110">
         <svg
           viewBox="0 0 24 24"
           className="h-7 w-7 fill-white"
