@@ -451,21 +451,27 @@ input:focus, textarea:focus, select:focus {
 
 /* ─── Scrollbar ─── */
 
+/* Hide the scrollbar entirely while keeping scrolling functional */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 0;
+  height: 0;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-paper);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-moss);
-  border-radius: 3px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-deep-forest);
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+html {
+  scrollbar-width: none;
 }
 
 /* ─── Selection ─── */
