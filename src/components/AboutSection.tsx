@@ -48,7 +48,7 @@ export default function AboutSection({
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <MorphImage
-              src="/images/founder.jpg"
+              src="/images/founder.png"
               alt="Sonia Sreeraj — Founder of SsaRanga"
               preset="portrait"
               parallax
