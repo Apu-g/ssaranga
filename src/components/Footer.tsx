@@ -83,7 +83,7 @@ export default function Footer() {
               <InstagramIcon className="h-5 w-5" />
             </a>
             <a
-              href="https://wa.me/9008480197"
+              href="https://wa.me/9180168155"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat with SsaRanga on WhatsApp"
