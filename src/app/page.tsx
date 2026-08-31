@@ -11,11 +11,12 @@ import OffersSection from "@/components/OffersSection";
 import JourneySection from "@/components/JourneySection";
 import AboutSection from "@/components/AboutSection";
 import SpaGallerySection from "@/components/SpaGallerySection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import WaveSeparator from "@/components/WaveSeparator";
 
 /* One-page full-scroll experience:
-   Hero → Why → Break → Who → Programs → Offers → Journey → About → Break → Contact */
+   Hero → Why → Break → Who → Programs → Offers → Journey → About → Spa → Testimonials → Break → Contact */
 
 export default function Home() {
   const [introStarted, setIntroStarted] = useState(false);
@@ -59,6 +60,8 @@ export default function Home() {
       <AboutSection />
 
       <SpaGallerySection />
+
+      <TestimonialsSection />
 
       <SectionBreak
         image="/images/detail-calm.jpg"

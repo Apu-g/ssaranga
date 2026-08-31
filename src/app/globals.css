@@ -426,6 +426,42 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+/* ─── Testimonials Marquee ─── */
+
+.testimonial-marquee-row {
+  width: 100%;
+  overflow: hidden;
+}
+
+.testimonial-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: testimonial-marquee-scroll 52s linear infinite;
+}
+
+.testimonial-marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+.testimonial-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-marquee-group {
+  display: flex;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@keyframes testimonial-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ─── Reduced Motion ─── */
 
 @media (prefers-reduced-motion: reduce) {
