@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import FilterText from "./FilterText";
 
-const TESTIMONIALS_ROW_1 = [
+const TESTIMONIALS = [
   {
     text: "My daughter was anxious about school, but after just three sessions at SsaRanga she started sleeping better and her teachers noticed the change. The space feels like a warm hug — calm, safe, and truly healing.",
     author: "Priya Sharma",
@@ -25,9 +25,6 @@ const TESTIMONIALS_ROW_1 = [
     author: "Deepak Nair",
     role: "Corporate Professional",
   },
-];
-
-const TESTIMONIALS_ROW_2 = [
   {
     text: "I recommend SsaRanga to every parent I meet. The way they connect with children through mindfulness — no screens, no pressure, just presence — is exactly what our kids need today.",
     author: "Lakshmi Venkatesh",
@@ -65,38 +62,17 @@ function TestimonialCard({
   );
 }
 
-function MarqueeRow({
-  items,
-  reverse = false,
-}: {
-  items: typeof TESTIMONIALS_ROW_1;
-  reverse?: boolean;
-}) {
-  const doubled = [...items, ...items];
-  return (
-    <div className="testimonial-marquee-row">
-      <div className={`testimonial-marquee-track ${reverse ? "reverse" : ""}`}>
-        {[0, 1].map((track) => (
-          <div key={track} className="testimonial-marquee-group">
-            {doubled.map((item, i) => (
-              <TestimonialCard key={`${track}-${i}`} {...item} />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function TestimonialSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
     <section
       id="testimonials"
       ref={sectionRef}
-      className="relative overflow-hidden bg-paper py-20 md:py-28"
+      className="relative overflow-hidden bg-cream py-20 md:py-28"
     >
       {/* Header */}
       <motion.div
@@ -115,19 +91,26 @@ export default function TestimonialSection() {
         </p>
       </motion.div>
 
-      {/* Marquee rows — full-bleed with edge fades */}
+      {/* Single marquee row — large vertical cards moving right-to-left */}
       <motion.div
         className="relative"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ delay: 0.3, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-paper to-transparent md:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-paper to-transparent md:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-cream to-transparent md:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-cream to-transparent md:w-32" />
 
-        <div className="space-y-6 md:space-y-8">
-          <MarqueeRow items={TESTIMONIALS_ROW_1} />
-          <MarqueeRow items={TESTIMONIALS_ROW_2} reverse />
+        <div className="testimonial-marquee-row">
+          <div className="testimonial-marquee-track">
+            {[0, 1].map((track) => (
+              <div key={track} className="testimonial-marquee-group">
+                {doubled.map((item, i) => (
+                  <TestimonialCard key={`${track}-${i}`} {...item} />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>
