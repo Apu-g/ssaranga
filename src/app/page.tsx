@@ -11,7 +11,7 @@ import OffersSection from "@/components/OffersSection";
 import JourneySection from "@/components/JourneySection";
 import AboutSection from "@/components/AboutSection";
 import SpaGallerySection from "@/components/SpaGallerySection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import ContactSection from "@/components/ContactSection";
 import WaveSeparator from "@/components/WaveSeparator";
 
@@ -61,7 +61,7 @@ export default function Home() {
 
       <SpaGallerySection />
 
-      <TestimonialsSection />
+      <TestimonialSection />
 
       <SectionBreak
         image="/images/detail-calm.jpg"

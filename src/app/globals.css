@@ -462,6 +462,119 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+.testimonial-card {
+  width: 28rem;
+  min-height: 16rem;
+  padding: 2.25rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(11, 43, 38, 0.92) 0%,
+    rgba(22, 56, 50, 0.88) 50%,
+    rgba(35, 83, 71, 0.82) 100%
+  );
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--color-gold);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.testimonial-text {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.testimonial-author-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 1.25rem;
+}
+
+.testimonial-author {
+  font-family: var(--font-heading), 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-gold);
+}
+
+.testimonial-role {
+  font-family: var(--font-body), 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    width: 18rem;
+    min-height: 12rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    -webkit-line-clamp: 5;
+  }
+
+  .testimonial-author {
+    font-size: 1.1rem;
+  }
+
+  .testimonial-role {
+    font-size: 0.68rem;
+  }
+
+  .testimonial-marquee-group {
+    gap: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .testimonial-card {
+    width: 15rem;
+    min-height: 10rem;
+    padding: 1.25rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 4;
+  }
+
+  .testimonial-author {
+    font-size: 1rem;
+  }
+}
+
 /* ─── Reduced Motion ─── */
 
 @media (prefers-reduced-motion: reduce) {
