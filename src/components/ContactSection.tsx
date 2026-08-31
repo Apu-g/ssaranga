@@ -14,10 +14,30 @@ const programOptions = [
   "General Enquiry",
 ];
 
+// WhatsApp number in E.164 format (country code + number, no + or spaces)
 const WHATSAPP_NUMBER = "9180168155";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi SsaRanga! I'd like to know more about your programs."
 )}`;
+
+function buildEnquiryMessage(data: {
+  name: string;
+  contact: string;
+  program: string;
+  message: string;
+}) {
+  const lines = [
+    "Hi SsaRanga! I'd like to make an enquiry.",
+    "",
+    `Name: ${data.name}`,
+    `Phone / Email: ${data.contact}`,
+    `Program Interest: ${data.program}`,
+  ];
+  if (data.message) {
+    lines.push("", `Message: ${data.message}`);
+  }
+  return lines.join("\n");
+}
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -51,8 +71,31 @@ export default function ContactSection({
     e.preventDefault();
     setFormState("sending");
 
-    // Simulate form submission (replace with actual endpoint)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Try the backend API (auto-send via WhatsApp Business Cloud API).
+    // If it isn't configured yet, fall back to opening the wa.me link.
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+
+      if (!result?.configured) {
+        const message = buildEnquiryMessage(formData);
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+          message
+        )}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+    } catch {
+      const message = buildEnquiryMessage(formData);
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        message
+      )}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
     setFormState("sent");
 
     // Reset after 3 seconds
