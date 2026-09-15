@@ -2,42 +2,24 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import InstagramIcon from "@/components/InstagramIcon";
 
-const programOptions = [
-  "SsaRanga Kids (8–18)",
-  "SsaRanga Women (18+)",
-  "SsaRanga Elders (55+)",
-  "SsaRanga One-to-One",
-  "SsaRanga Workshops",
-  "General Enquiry",
+const interestedOptions = [
+  "Young Minds",
+  "Women",
+  "Elders",
+  "Workshop",
+  "One-to-One Session",
+  "Community Program",
 ];
 
-// WhatsApp number in E.164 format (country code + number, no + or spaces)
 const WHATSAPP_NUMBER = "9180168155";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi SsaRanga! I'd like to know more about your programs."
 )}`;
 
-function buildEnquiryMessage(data: {
-  name: string;
-  contact: string;
-  program: string;
-  message: string;
-}) {
-  const lines = [
-    "Hi SsaRanga! I'd like to make an enquiry.",
-    "",
-    `Name: ${data.name}`,
-    `Phone / Email: ${data.contact}`,
-    `Program Interest: ${data.program}`,
-  ];
-  if (data.message) {
-    lines.push("", `Message: ${data.message}`);
-  }
-  return lines.join("\n");
-}
+const INSTAGRAM_LINK = "https://www.instagram.com/ssaranga_mindspa";
+const EMAIL = "ssarangamindspa@gmail.com";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -62,7 +44,9 @@ export default function ContactSection({
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({
     name: "",
-    contact: "",
+    ageGroup: "",
+    phone: "",
+    email: "",
     program: "",
     message: "",
   });
@@ -71,56 +55,32 @@ export default function ContactSection({
     e.preventDefault();
     setFormState("sending");
 
-    // Try the backend API (auto-send via WhatsApp Business Cloud API).
-    // If it isn't configured yet, fall back to opening the wa.me link.
-    try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const result = await res.json();
-
-      if (!result?.configured) {
-        const message = buildEnquiryMessage(formData);
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-          message
-        )}`;
-        window.open(url, "_blank", "noopener,noreferrer");
-      }
-    } catch {
-      const message = buildEnquiryMessage(formData);
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        message
-      )}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
+    // Simulate form submission (replace with actual endpoint)
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setFormState("sent");
 
     // Reset after 3 seconds
     setTimeout(() => {
       setFormState("idle");
-      setFormData({ name: "", contact: "", program: "", message: "" });
+      setFormData({
+        name: "",
+        ageGroup: "",
+        phone: "",
+        email: "",
+        program: "",
+        message: "",
+      });
     }, 4000);
   };
 
   return (
-    <>
-    <section id="contact" className="section-padding relative overflow-hidden bg-deep-forest" ref={sectionRef}>
-      {/* Photo background with deep-green contrast overlay */}
-      <div className="absolute inset-0">
-        <Image
-          src="/images/detail-calm.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-deep-forest/85" />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep-forest via-pine/50 to-deep-forest" />
-      </div>
+    <section
+      id="contact"
+      className="section-padding relative overflow-hidden bg-cream"
+      ref={sectionRef}
+    >
+      {/* Ambient glow */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[44rem] h-[44rem] max-w-[94vw] max-h-[94vw] rounded-full bg-sage/30 blur-[110px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Header */}
@@ -131,35 +91,37 @@ export default function ContactSection({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="label-caps text-gold mb-4 block">Get In Touch</span>
-            <h2 className="text-white mb-6">Begin the Journey with SsaRanga</h2>
+            <span className="label-caps text-moss mb-4 block">
+              Let&apos;s Begin the Conversation
+            </span>
+            <h2 className="text-ink mb-6">We&apos;d love to hear from you</h2>
 
             {/* Registration badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gold/15 border border-gold/40 backdrop-blur-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-              <span className="label-caps text-gold text-xs">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-moss/10 border border-moss/30 backdrop-blur-sm mb-6">
+              <span className="w-2 h-2 rounded-full bg-moss animate-pulse" />
+              <span className="label-caps text-moss text-xs">
                 Registrations are now open!
               </span>
             </div>
 
-            <p className="text-white/70 text-lg max-w-2xl mx-auto font-light">
-              If you are looking for a meaningful relaxation and guidance program
-              for your child, I warmly invite you to explore this opportunity and
-              be part of this new journey.
+            <p className="text-ink/65 text-lg max-w-2xl mx-auto font-light">
+              Whether you are exploring SsaRanga for yourself, your child or
+              your community, we&apos;re here to help you find the right space
+              to begin.
             </p>
           </motion.div>
         )}
 
-        {/* Contact card — dark glass over photo */}
+        {/* Contact card — light glass */}
         <motion.div
-          className="glass-dark glass-sheen rounded-[2rem] p-8 md:p-12 max-w-2xl mx-auto"
+          className="rounded-[2rem] p-8 md:p-12 max-w-2xl mx-auto bg-white/75 backdrop-blur-xl border border-moss/15 shadow-[0_24px_70px_rgba(0,59,92,0.08)]"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="text-center mb-8">
-            <p className="text-white/75 font-light">
-              For details &amp; enrollment — Please contact me
+            <p className="text-ink/65 font-light">
+              Share a few details and we&apos;ll get back to you.
             </p>
           </div>
 
@@ -170,178 +132,270 @@ export default function ContactSection({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-sage/20 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-moss/15 flex items-center justify-center">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                   <path
                     d="M8 16L14 22L24 10"
-                    stroke="#8EB69B"
+                    stroke="#008AC7"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
               </div>
-              <h3 className="text-white text-xl mb-2">Thank you!</h3>
-              <p className="text-white/60 font-light">
+              <h3 className="text-ink text-xl mb-2">Thank you!</h3>
+              <p className="text-ink/60 font-light">
                 We&apos;ll be in touch soon to begin your journey.
               </p>
             </motion.div>
           ) : (
             <>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Name */}
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm text-white/70 mb-2 font-medium"
-                >
-                  Your Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-ink/10 text-ink placeholder:text-ink/30 transition-all duration-300"
-                  placeholder="Enter your name"
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Name */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink placeholder:text-ink/30 transition-all duration-300 focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    placeholder="Your name"
+                  />
+                </div>
 
-              {/* Phone / Email */}
-              <div>
-                <label
-                  htmlFor="contact"
-                  className="block text-sm text-white/70 mb-2 font-medium"
-                >
-                  Phone or Email
-                </label>
-                <input
-                  id="contact"
-                  type="text"
-                  required
-                  value={formData.contact}
-                  onChange={(e) =>
-                    setFormData({ ...formData, contact: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-ink/10 text-ink placeholder:text-ink/30 transition-all duration-300"
-                  placeholder="Your phone number or email"
-                />
-              </div>
-
-              {/* Program interest */}
-              <div>
-                <label
-                  htmlFor="program"
-                  className="block text-sm text-white/70 mb-2 font-medium"
-                >
-                  Program Interest
-                </label>
-                <select
-                  id="program"
-                  required
-                  value={formData.program}
-                  onChange={(e) =>
-                    setFormData({ ...formData, program: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-ink/10 text-ink transition-all duration-300 appearance-none cursor-pointer"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238EB69B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 16px center",
-                  }}
-                >
-                  <option value="">Select a program</option>
-                  {programOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
+                {/* Age Group */}
+                <div>
+                  <label
+                    htmlFor="ageGroup"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Age Group
+                  </label>
+                  <select
+                    id="ageGroup"
+                    value={formData.ageGroup}
+                    onChange={(e) =>
+                      setFormData({ ...formData, ageGroup: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink transition-all duration-300 appearance-none cursor-pointer focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    style={{ color: formData.ageGroup ? "#003B5C" : "#8CA6B4" }}
+                  >
+                    <option value="" disabled>
+                      Select an age group
                     </option>
-                  ))}
-                </select>
-              </div>
+                    <option value="Young Minds">Young Minds</option>
+                    <option value="Women">Women (18+)</option>
+                    <option value="Elders">Elders (55+)</option>
+                  </select>
+                </div>
 
-              {/* Message */}
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm text-white/70 mb-2 font-medium"
+                {/* Phone Number */}
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink placeholder:text-ink/30 transition-all duration-300 focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    placeholder="Your phone number"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Email (optional)
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink placeholder:text-ink/30 transition-all duration-300 focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    placeholder="Your email address"
+                  />
+                </div>
+
+                {/* Program interest */}
+                <div>
+                  <label
+                    htmlFor="program"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Interested In
+                  </label>
+                  <select
+                    id="program"
+                    required
+                    value={formData.program}
+                    onChange={(e) =>
+                      setFormData({ ...formData, program: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink transition-all duration-300 appearance-none cursor-pointer focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    style={{ color: formData.program ? "#003B5C" : "#8CA6B4" }}
+                  >
+                    <option value="" disabled>
+                      Select an interest
+                    </option>
+                    {interestedOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm text-ink/70 mb-2 font-medium"
+                  >
+                    Message (optional)
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink placeholder:text-ink/30 transition-all duration-300 resize-none focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
+                    placeholder="Tell us a bit about what you're looking for..."
+                  />
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={formState === "sending"}
+                  className="w-full py-3.5 rounded-full bg-moss text-white font-medium hover:bg-deep-forest transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shadow-[0_10px_30px_rgba(0,138,199,0.3)]"
                 >
-                  Message (optional)
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-ink/10 text-ink placeholder:text-ink/30 transition-all duration-300 resize-none"
-                  placeholder="Tell us a bit about what you're looking for..."
-                />
+                  {formState === "sending" ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </span>
+                  ) : (
+                    "Send Enquiry"
+                  )}
+                </button>
+              </form>
+
+              {/* WhatsApp / Instagram — divider + inline buttons */}
+              <div className="flex items-center gap-3 my-6">
+                <span className="h-px flex-1 bg-moss/15" />
+                <span className="label-caps text-ink/40 text-[0.6rem]">or</span>
+                <span className="h-px flex-1 bg-moss/15" />
               </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={formState === "sending"}
-                className="w-full py-3.5 rounded-full bg-gold text-deep-forest font-medium hover:bg-gold-soft transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-              >
-                {formState === "sending" ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="w-4 h-4 border-2 border-deep-forest/30 border-t-deep-forest rounded-full animate-spin" />
-                    Sending...
-                  </span>
-                ) : (
-                  "Send Enquiry"
-                )}
-              </button>
-            </form>
-
-            {/* WhatsApp / Instagram — divider + inline buttons */}
-            <div className="flex items-center gap-3 my-6">
-              <span className="h-px flex-1 bg-white/10" />
-              <span className="label-caps text-white/40 text-[0.6rem]">or</span>
-              <span className="h-px flex-1 bg-white/10" />
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-[#1ebe5b] hover:shadow-lg hover:-translate-y-0.5"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-                Chat on WhatsApp
-              </a>
-              <a
-                href="https://www.instagram.com/ssaranga_mindspa"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow SsaRanga on Instagram"
-                className="flex w-full items-center justify-center gap-2.5 rounded-full bg-white/10 border border-white/20 py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-white/20 hover:shadow-lg hover:-translate-y-0.5"
-              >
-                <InstagramIcon className="h-5 w-5" />
-                Follow on Instagram
-              </a>
-            </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] py-3.5 text-white font-medium transition-all duration-300 shadow-md hover:bg-[#1ebe5b] hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                  Start a Conversation on WhatsApp
+                </a>
+                <a
+                  href={INSTAGRAM_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow SsaRanga on Instagram"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-full bg-moss/10 border border-moss/30 py-3.5 text-ink font-medium transition-all duration-300 shadow-md hover:bg-moss/20 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <InstagramIcon className="h-5 w-5" />
+                  Follow on Instagram
+                </a>
+              </div>
             </>
           )}
         </motion.div>
 
+        {/* Direct contact details */}
+        <motion.div
+          className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.45, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {[
+            {
+              label: "Call / WhatsApp",
+              value: "+91 9180168155",
+              href: `tel:+${WHATSAPP_NUMBER}`,
+            },
+            {
+              label: "Email",
+              value: "ssarangamindspa@gmail.com",
+              href: `mailto:${EMAIL}`,
+            },
+            {
+              label: "Instagram",
+              value: "@ssaranga_mindspa",
+              href: INSTAGRAM_LINK,
+            },
+            {
+              label: "Location",
+              value: "Bengaluru, India",
+              href: undefined,
+            },
+          ].map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target={item.href?.startsWith("http") ? "_blank" : undefined}
+              rel={
+                item.href?.startsWith("http") ? "noopener noreferrer" : undefined
+              }
+              className={`rounded-2xl p-4 text-center bg-white/70 backdrop-blur border border-moss/15 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(0,138,199,0.15)] ${
+                item.href ? "cursor-pointer" : "cursor-default"
+              }`}
+            >
+              <span className="label-caps text-moss block text-xs mb-1">
+                {item.label}
+              </span>
+              <span className="text-ink text-sm font-medium break-words">
+                {item.value}
+              </span>
+            </a>
+          ))}
+        </motion.div>
+
         {/* Closing line */}
         <motion.p
-          className="text-center text-white/60 text-sm font-light mt-10 max-w-lg mx-auto"
+          className="text-center text-ink/50 text-sm font-light mt-10 max-w-lg mx-auto"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6, duration: 0.7 }}
         >
-          Let&apos;s help our children cultivate calmness, clarity of thought
-          and confidence to thrive in life.
+          Nurture within. Grow beyond. We look forward to hearing your story.
         </motion.p>
       </div>
     </section>
-    </>
   );
 }

@@ -16,9 +16,9 @@ const REVEAL_S = 1.15;
 
 /* Premium spa/nature photos cycling slowly behind the loader */
 const LOADER_PHOTOS = [
-  "/images/leaves-texture.jpg",
-  "/images/detail-calm.jpg",
-  "/images/hero-bg.jpg",
+  "/images/spa-gallery/1.jpg",
+  "/images/founder.jpeg",
+  "/images/kids1.jpeg",
 ];
 
 interface Props {
@@ -124,11 +124,11 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             logoCircleRef.current,
             {
               boxShadow:
-                "0 0 40px rgba(217,169,76,0.12), 0 30px 80px rgba(0,0,0,0.5)",
+                "0 0 40px rgba(141,223,234,0.14), 0 30px 80px rgba(0,0,0,0.5)",
             },
             {
               boxShadow:
-                "0 0 80px rgba(217,169,76,0.35), 0 30px 80px rgba(0,0,0,0.5)",
+                "0 0 80px rgba(141,223,234,0.4), 0 30px 80px rgba(0,0,0,0.5)",
               duration: 1.4,
               ease: "sine.inOut",
               yoyo: true,
@@ -326,7 +326,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
       aria-hidden="true"
     >
       {/* ── Solid brand base: guarantees zero flash before photos/shader load ── */}
-      <div className="absolute inset-0 bg-deep-forest" />
+      <div className="absolute inset-0 bg-paper" />
 
       {/* ── Premium spa/nature photo backdrop, slow Ken Burns + crossfade ── */}
       <div className="absolute inset-0">
@@ -346,7 +346,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-deep-forest/75 via-deep-forest/60 to-deep-forest/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/55 to-paper/90" />
         <div className="absolute inset-0 hero-vignette" />
       </div>
 
@@ -359,7 +359,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             cy="50%"
             r="0"
             fill="none"
-            stroke="rgba(142,182,155,0.7)"
+            stroke="rgba(141,223,234,0.7)"
             strokeWidth="1.5"
           />
           <circle
@@ -368,7 +368,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             cy="50%"
             r="0"
             fill="none"
-            stroke="rgba(217,169,76,0.8)"
+            stroke="rgba(156,224,234,0.8)"
             strokeWidth="2"
           />
           <circle
@@ -377,7 +377,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             cy="50%"
             r="0"
             fill="none"
-            stroke="rgba(255,255,255,0.4)"
+            stroke="rgba(141,223,234,0.9)"
             strokeWidth="1"
           />
         </svg>
@@ -426,7 +426,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
           <div className="flex flex-col items-center gap-3">
             <p
               ref={wordmarkRef}
-              className="text-white text-3xl md:text-4xl font-light tracking-[0.28em] uppercase"
+              className="text-ink text-3xl md:text-4xl font-light tracking-[0.28em] uppercase"
               style={{
                 fontFamily: "var(--font-heading)",
                 willChange: "opacity, transform",
@@ -436,7 +436,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
             </p>
             <p
               ref={subtitleRef}
-              className="label-caps text-gold/90 tracking-[0.4em]"
+              className="label-caps text-moss tracking-[0.4em]"
               style={{ willChange: "opacity, transform" }}
             >
               The Mind Spa
@@ -444,12 +444,12 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
 
             <div
               ref={shimmerTrackRef}
-              className="mt-4 w-40 h-[2px] rounded-full bg-white/10 overflow-hidden"
+              className="mt-4 w-40 h-[2px] rounded-full bg-moss/15 overflow-hidden"
               style={{ willChange: "opacity" }}
             >
               <div
                 ref={shimmerBarRef}
-                className="h-full w-1/2 rounded-full bg-gradient-to-r from-transparent via-gold to-transparent"
+                className="h-full w-1/2 rounded-full bg-gradient-to-r from-transparent via-moss to-transparent"
               />
             </div>
           </div>

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { scrollToSection } from "@/lib/scrollTo";
 import InstagramIcon from "@/components/InstagramIcon";
+import AnchorLink from "@/components/AnchorLink";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -14,56 +14,77 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const quickLinks = [
-  { label: "Home", id: "top" },
-  { label: "Programs", id: "programs" },
+  { label: "Home", id: "home" },
   { label: "About", id: "about" },
+  { label: "Founder", id: "founder" },
+  { label: "Young Minds", id: "young-minds" },
+  { label: "Women", id: "women" },
+  { label: "Elders", id: "elders" },
+  { label: "Programs", id: "programs" },
+  { label: "How We Work", id: "experience" },
+  { label: "Activities", id: "activities" },
+  { label: "Moments", id: "moments" },
+  { label: "Testimonials", id: "testimonials" },
+  { label: "Events", id: "events" },
   { label: "Contact", id: "contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-deep-forest pt-16 pb-10 px-6 border-t border-white/5">
-      <div className="max-w-6xl mx-auto">
+    <footer className="bg-paper pt-16 pb-10 px-6 border-t border-moss/15 relative overflow-hidden">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] max-w-[94vw] max-h-[94vw] rounded-full bg-sage/15 blur-[110px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         {/* Top row: brand + quick links */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 mb-12 text-center md:text-left">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start gap-4 max-w-sm">
-            <div className="relative w-44 h-[4.5rem]">
-              <Image
-                src="/images/logo-kannada.png"
-                alt="SsaRanga"
-                fill
-                sizes="176px"
-                className="object-contain"
-              />
-            </div>
+            <AnchorLink
+              id="home"
+              className="flex items-center gap-4 shrink-0 group cursor-pointer"
+              ariaLabel="SsaRanga — Home"
+            >
+              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-moss/25 transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(141,223,234,0.5)]">
+                <Image
+                  src="/images/logo-main.jpeg"
+                  alt="SsaRanga"
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </span>
+              <span
+                className="text-deep-forest text-3xl tracking-[0.08em]"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >SsaRanga
+            </span>
+            </AnchorLink>
             <p
-              className="text-gold/80 text-base italic font-light"
+              className="text-moss text-base italic font-light"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Nurturing roots, strengthening minds, thriving in a dynamic
-              world.
+              Nurture Within. Grow Beyond.
             </p>
           </div>
 
           {/* Quick links */}
-          <nav className="flex flex-col items-center md:items-end gap-3">
-            <span className="label-caps text-white/40 mb-1">Navigate</span>
+          <nav className="flex flex-col items-center md:items-end gap-2.5">
+            <span className="label-caps text-ink/40 mb-1">Navigate</span>
             {quickLinks.map((link) => (
-              <button
+              <AnchorLink
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="text-white/70 hover:text-gold transition-colors duration-300 font-light cursor-pointer"
+                id={link.id}
+                className="text-ink/70 hover:text-moss transition-colors duration-300 font-light cursor-pointer"
               >
                 {link.label}
-              </button>
+              </AnchorLink>
             ))}
           </nav>
         </div>
 
         {/* Divider */}
         <motion.div
-          className="h-px bg-gradient-to-r from-transparent via-sage/30 to-transparent mb-8"
+          className="h-px bg-gradient-to-r from-transparent via-moss/25 to-transparent mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -78,7 +99,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow SsaRanga on Instagram"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-0.5"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
             >
               <InstagramIcon className="h-5 w-5" />
             </a>
@@ -87,16 +108,27 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat with SsaRanga on WhatsApp"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-0.5"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
             >
               <WhatsAppIcon className="h-5 w-5" />
             </a>
+            <a
+              href="mailto:ssarangamindspa@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email SsaRanga"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="3" />
+                <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
-          <p className="text-white/35 text-xs tracking-wide">
-            &copy; {new Date().getFullYear()} SsaRanga — The Mind Spa. All
-            rights reserved.
-            <span className="mx-2 text-white/15">·</span>
-            <span className="text-white/30">Bengaluru, India</span>
+          <p className="text-ink/40 text-xs tracking-wide">
+            &copy; {new Date().getFullYear()} SsaRanga. All Rights Reserved.
+            <span className="mx-2 text-moss/30">·</span>
+            <span className="text-ink/30">Bengaluru, India</span>
           </p>
         </div>
       </div>

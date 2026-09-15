@@ -50,7 +50,7 @@ export default function SpaGallerySection() {
 
   return (
     <section
-      id="spa-gallery"
+      id="moments"
       ref={sectionRef}
       className="relative overflow-hidden bg-paper py-20 md:py-28"
     >
@@ -62,14 +62,15 @@ export default function SpaGallerySection() {
         transition={{ duration: 0.7, ease }}
       >
         <span className="label-caps text-moss mb-4 block">
-          Inside The Mind Spa
+          SsaRanga Moments
         </span>
         <FilterText as="h2" variant="melt" className="text-ink" duration={2.2}>
-          A glimpse of the calm
+          Every experience becomes a story
         </FilterText>
         <p className="mx-auto mt-5 max-w-xl text-lg font-light text-ink/60">
-          Every corner is designed to help you slow down, breathe and feel at
-          ease.
+          Opening ceremonies, workshops, Young Minds activities, Women&apos;s
+          sessions, Elders&apos; gatherings, community events and special
+          celebrations.
         </p>
       </motion.div>
 

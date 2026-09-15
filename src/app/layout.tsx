@@ -23,24 +23,30 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "SsaRanga — The Mind Spa | Nurturing Roots, Strengthening Minds",
+  title: {
+    default: "SsaRanga — Nurture Within • Grow Beyond",
+    template: "%s",
+  },
   description:
-    "A nurturing space for calm minds, clear thinking and confident growth. Wellness programs for children, women and elders in Bengaluru.",
+    "SsaRanga is a space to pause, connect, reflect and grow — nurturing young minds, women and elders through conversations, storytelling, reflection and creative experiences.",
   keywords: [
     "SsaRanga",
     "Mind Spa",
     "wellness",
-    "children",
-    "mindfulness",
-    "Bengaluru",
+    "Young Minds",
+    "Women",
+    "Elders",
+    "storytelling",
+    "self-reflection",
     "personal growth",
-    "emotional wellbeing",
+    "Bengaluru",
     "confidence building",
+    "emotional wellbeing",
   ],
   openGraph: {
-    title: "SsaRanga — The Mind Spa",
+    title: "SsaRanga — Nurture Within • Grow Beyond",
     description:
-      "A nurturing space for calm minds, clear thinking and confident growth.",
+      "A space to pause, connect, reflect and grow — nurturing young minds, women and elders.",
     type: "website",
     locale: "en_IN",
     siteName: "SsaRanga",
