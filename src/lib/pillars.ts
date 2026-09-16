@@ -2,6 +2,7 @@ import type { PillarConfig } from "@/components/PillarSection";
 
 export const youngMindsConfig: PillarConfig = {
   id: "young-minds",
+  programSlug: "kids",
   kicker: "SsaRanga · Young Minds",
   heading: "Growing Strong From Within",
   intro:
@@ -28,11 +29,11 @@ export const youngMindsConfig: PillarConfig = {
   ctaLabel: "Explore Young Minds Programs",
   image: "/images/kids1.jpeg",
   imageAlt: "Young minds discovering their strengths at SsaRanga",
-  secondaryImage: "/images/kids 2.jpeg",
 };
 
 export const womenConfig: PillarConfig = {
   id: "women",
+  programSlug: "women",
   kicker: "SsaRanga · Women",
   heading: "Rooted & Rising",
   intro:
@@ -58,11 +59,11 @@ export const womenConfig: PillarConfig = {
   ctaLabel: "Explore Women's Programs",
   image: "/images/women1.jpeg",
   imageAlt: "Women in a reflective circle at SsaRanga",
-  secondaryImage: "/images/women2.jpeg",
 };
 
 export const eldersConfig: PillarConfig = {
   id: "elders",
+  programSlug: "elders",
   kicker: "SsaRanga · Elders",
   heading: "Every Story Matters. Every Experience Has Value.",
   intro:
@@ -87,5 +88,4 @@ export const eldersConfig: PillarConfig = {
   ctaLabel: "Explore Elders Programs",
   image: "/images/elders1.jpeg",
   imageAlt: "Elders sharing stories at SsaRanga",
-  secondaryImage: "/images/elders2.jpeg",
 };

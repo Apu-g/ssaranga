@@ -9,7 +9,7 @@ import AnchorLink from "@/components/AnchorLink";
 
 const navLinks = [
   { label: "Home", id: "home" },
-  { label: "About", id: "about" },
+  { label: "About", id: "founder" },
   { label: "Programs", id: "programs" },
   { label: "Moments", id: "moments" },
   { label: "Contact", id: "contact" },
@@ -17,7 +17,7 @@ const navLinks = [
 
 const mobileLinks = [
   { label: "Home", id: "home" },
-  { label: "About", id: "about" },
+  { label: "About", id: "founder" },
   { label: "Founder", id: "founder" },
   { label: "Young Minds", id: "young-minds" },
   { label: "Women", id: "women" },
@@ -26,14 +26,12 @@ const mobileLinks = [
   { label: "How We Work", id: "experience" },
   { label: "Activities", id: "activities" },
   { label: "Moments", id: "moments" },
-  { label: "Testimonials", id: "testimonials" },
   { label: "Events", id: "events" },
   { label: "Contact", id: "contact" },
 ];
 
 const SPY_IDS = [
   "home",
-  "about",
   "founder",
   "young-minds",
   "women",
@@ -42,7 +40,6 @@ const SPY_IDS = [
   "experience",
   "activities",
   "moments",
-  "testimonials",
   "events",
   "contact",
 ];
@@ -50,14 +47,6 @@ const SPY_IDS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("home");
-  const [introStarted, setIntroStarted] = useState(() => hasIntroStarted());
-
-  useEffect(() => {
-    if (hasIntroStarted()) return;
-    const handler = () => setIntroStarted(true);
-    window.addEventListener("ssaranga:intro-started", handler);
-    return () => window.removeEventListener("ssaranga:intro-started", handler);
-  }, []);
 
   /* Scroll-spy: highlight the section currently in view */
   useEffect(() => {
@@ -110,8 +99,8 @@ export default function Navbar() {
           ].join(", "),
         }}
         initial={{ y: -80, opacity: 0 }}
-        animate={introStarted ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
-        transition={{ delay: introStarted ? 0.8 : 0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Brand — SsaRanga */}
         <AnchorLink
@@ -133,7 +122,7 @@ export default function Navbar() {
             className="ml-3 text-deep-forest text-xl tracking-[0.08em] font-medium"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            ಸಾರಂಗ · SsaRanga
+            ಸಾರಂಗ
           </span>
         </AnchorLink>
 
@@ -171,8 +160,8 @@ export default function Navbar() {
           ].join(", "),
         }}
         initial={{ y: -80, opacity: 0 }}
-        animate={introStarted ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
-        transition={{ delay: introStarted ? 0.8 : 0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <AnchorLink
           id="home"
@@ -193,7 +182,7 @@ export default function Navbar() {
             className="ml-2.5 text-deep-forest text-lg tracking-[0.06em]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            SsaRanga
+            ಸಾರಂಗ
           </span>
         </AnchorLink>
 

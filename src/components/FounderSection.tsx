@@ -1,146 +1,128 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import MorphImage from "./MorphImage";
 import FilterText from "./FilterText";
 
 export default function FounderSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, margin: "-60px" });
+  const [showFullMessage, setShowFullMessage] = useState(false);
 
   return (
-    <>
-      {/* ── Meet the Founder ── */}
-      <section ref={ref} className="section-padding bg-paper">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-10 md:gap-16 items-start">
-          {/* Portrait */}
+    <section id="founder" ref={ref} className="section-padding bg-paper relative overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute -top-24 -left-24 w-[36rem] h-[36rem] rounded-full bg-sage/25 blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-[36rem] h-[36rem] rounded-full bg-cream/60 blur-[120px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Portrait Column — With Signature Wavy Morph Frame on scroll */}
           <motion.div
-            className="md:col-span-2"
+            className="lg:col-span-5 flex flex-col items-center"
             initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="relative rounded-[2rem] overflow-hidden shadow-[var(--shadow-soft)] ring-1 ring-moss/10">
-              <Image
-                src="/images/founder.jpeg"
-                alt="Sonia Sreeraj — Founder of SsaRanga"
-                width={900}
-                height={1150}
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-            </div>
-            <div className="mt-6 text-center">
-              <p className="text-ink text-xl font-light" style={{ fontFamily: "var(--font-heading)" }}>
-                Sonia Sreeraj
-              </p>
-              <p className="text-moss text-sm">Founder, SsaRanga</p>
-            </div>
-          </motion.div>
-
-          {/* Bio */}
-          <motion.div
-            className="md:col-span-3"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="label-caps text-moss mb-4 block">Meet the Founder</span>
-            <FilterText as="h2" variant="melt" className="text-ink mb-6" duration={2}>
-              Curiosity led to a deeper question
-            </FilterText>
-            <div className="space-y-5 text-ink/65 font-light leading-relaxed">
-              <p>
-                With a background in BSc – Pharmacognosy and an MBA in Marketing
-                and around two decades of professional experience across service
-                and product-based organisations, Sonia has spent years
-                interacting with people from different backgrounds and
-                perspectives.
-              </p>
-              <p>
-                Over time, one thing became especially meaningful to her — the
-                opportunity to understand people, listen to their stories and
-                recognise the potential within them.
-              </p>
-              <p>
-                Her interest in personal growth, spirituality, life learning and
-                understanding the human mind gradually led to a deeper question:
-              </p>
-              <p className="text-moss font-medium text-lg">
-                Can we create a space where people feel heard, understood and
-                encouraged to grow?
-              </p>
-              <p>That thought became SsaRanga.</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Founder's Message ── */}
-      <section className="section-padding bg-cream relative overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] max-w-[92vw] max-h-[92vw] rounded-full bg-sage/20 blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <motion.span
-            className="label-caps text-moss mb-6 block text-center"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7 }}
-          >
-            Founder&apos;s Message
-          </motion.span>
-
-          <motion.div
-            className="glass-light rounded-[2rem] p-8 md:p-12 card-hover"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <svg className="mb-6 h-10 w-10 text-moss/40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M11.3 5.2C7.5 7.1 5 10.5 5 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C7.8 8.3 9.4 6.5 11.3 5.2zm10 0C17.5 7.1 15 10.5 15 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C17.8 8.3 19.4 6.5 21.3 5.2z" />
-            </svg>
-            <div className="space-y-5 text-ink/70 font-light leading-relaxed text-base md:text-lg">
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px]">
+              {/* Outer decorative glow frame */}
+              <div className="absolute -inset-3 rounded-[2.5rem] bg-gradient-to-tr from-moss/25 via-sage/30 to-cream/50 blur-xl opacity-75 pointer-events-none" />
+
+              <MorphImage
+                src="/images/founder.jpeg"
+                alt="Sonia Sreeraj — Founder of SsaRanga"
+                preset="portrait"
+                parallax
+              />
+
+              {/* Floating identity pill */}
+              <div className="mt-3 glass-light rounded-2xl p-3.5 text-center shadow-md border border-moss/15">
+                <p className="text-ink text-lg font-medium leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                  Sonia Sreeraj
+                </p>
+                <p className="text-moss text-xs font-semibold uppercase tracking-wider mt-0.5">
+                  Founder, SsaRanga
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Bio & Vision Column */}
+          <motion.div
+            className="lg:col-span-7 flex flex-col justify-center"
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="mb-3">
+              <span className="label-caps text-moss block">
+                Meet the Founder
+              </span>
+            </div>
+            <FilterText as="h2" variant="melt" className="text-ink mb-5" duration={1.1}>
+              Curiosity led to a deeper question
+            </FilterText>
+
+            <div className="space-y-4 text-ink/75 font-light leading-relaxed text-base md:text-lg">
               <p>
-                SsaRanga began as a thought that quietly lived in my heart.
+                With a background in BSc – Pharmacognosy and an MBA in Marketing, accompanied by around two decades of professional experience across service and product-based organisations, Sonia has spent years interacting with people from diverse perspectives and walks of life.
               </p>
               <p>
-                In a world that is constantly moving, I felt there was a need
-                for a space where we could simply pause, breathe, reflect and
-                reconnect with ourselves.
+                Over time, one purpose became especially meaningful to her: the opportunity to truly understand people, listen to their stories, and recognise the profound potential waiting within them.
               </p>
-              <p>
-                I have always believed that every person carries something
-                beautiful within them — a story, a strength, an experience, a
-                dream or a possibility waiting to be discovered.
-              </p>
-              <p>
-                SsaRanga is my humble effort to create that space. A space where
-                young minds can discover their strengths, women can reconnect
-                with themselves, and elders can share their wisdom, stories and
-                experiences.
-              </p>
-              <p className="text-moss font-medium">
-                My vision is simple: to nurture what is within us, so that we
-                can grow beyond what we thought was possible.
-              </p>
-              <p>
-                I welcome you to SsaRanga — not just as a program, but as a
-                journey of connection, reflection and growth.
-              </p>
-              <p className="text-ink/90">
-                With warmth,
-                <br />
-                <span className="text-moss">Sonia Sreeraj</span>
-                <br />
-                <span className="text-ink/50 text-sm">Founder, SsaRanga</span>
-              </p>
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-cream/80 to-paper border border-moss/20 my-2">
+                <p className="text-moss font-medium text-base sm:text-lg italic" style={{ fontFamily: "var(--font-heading)" }}>
+                  &ldquo;Can we create a space where people feel heard, understood and encouraged to grow?&rdquo;
+                </p>
+                <p className="text-ink/60 text-xs mt-1">That quiet thought in the heart became SsaRanga.</p>
+              </div>
+            </div>
+
+            {/* Founder's Message Card — Integrated seamlessly */}
+            <div className="mt-5 rounded-2xl glass-light p-5 sm:p-6 border border-moss/15 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="label-caps text-moss text-xs block mb-1">Founder&apos;s Message</span>
+                  <p className="text-ink text-sm sm:text-base font-light italic leading-relaxed text-ink/80">
+                    &ldquo;In a world that is constantly moving, I felt the need for a space where we could simply pause, breathe, reflect and reconnect with ourselves.&rdquo;
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowFullMessage(!showFullMessage)}
+                  className="shrink-0 text-xs px-3.5 py-1.5 rounded-full bg-moss/10 text-moss hover:bg-moss hover:text-white transition-colors duration-200 font-medium cursor-pointer"
+                  aria-expanded={showFullMessage}
+                >
+                  {showFullMessage ? "Read Less" : "Read Full Message"}
+                </button>
+              </div>
+
+              <AnimatePresence>
+                {showFullMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="overflow-hidden mt-4 pt-4 border-t border-moss/10 space-y-3 text-sm text-ink/70 font-light leading-relaxed"
+                  >
+                    <p>
+                      I have always believed that every person carries something beautiful within them — a story, a strength, an experience, a dream or a possibility waiting to be discovered.
+                    </p>
+                    <p>
+                      SsaRanga is my humble effort to create that space. A space where young minds can discover their strengths, women can reconnect with themselves, and elders can share their wisdom, stories and experiences.
+                    </p>
+                    <p className="text-moss font-medium">
+                      My vision is simple: to nurture what is within us, so that we can grow beyond what we thought was possible.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

@@ -92,13 +92,29 @@ h3 {
   letter-spacing: 0.005em;
 }
 
-/* Small caps labels */
+/* Section kicker & caps labels */
 .label-caps {
   font-family: var(--font-body), 'Manrope', sans-serif;
-  font-size: 0.72rem;
+  font-size: clamp(0.85rem, 1.15vw, 1.02rem);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.25rem;
+  border-radius: 9999px;
+  background: rgba(0, 138, 199, 0.12);
+  border: 1.5px solid rgba(0, 138, 199, 0.32);
+  color: #008AC7;
+  font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0, 59, 92, 0.08);
 }
 
 /* ─── Glassmorphism ─── */
@@ -231,7 +247,7 @@ h3 {
 /* ─── Section Spacing ─── */
 
 .section-padding {
-  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 6rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3.5rem);
 }
 
 /* ─── Display Typography (big scroll-moment type) ─── */

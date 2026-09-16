@@ -49,6 +49,7 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
 
   useEffect(() => {
     if (skip) {
+      onStart();
       const raf = requestAnimationFrame(() => onComplete());
       return () => cancelAnimationFrame(raf);
     }
@@ -61,12 +62,13 @@ export default function LoadingScreen({ onStart, onComplete }: Props) {
     let ctx: { revert: () => void } | undefined;
 
     if (reduced) {
+      onStart();
       const raf = requestAnimationFrame(() => setRevealing(true));
       doneT = setTimeout(() => {
         document.body.style.overflow = "";
         markIntroStarted();
         onComplete();
-      }, 500);
+      }, 400);
       return () => {
         cancelAnimationFrame(raf);
         clearTimeout(doneT);

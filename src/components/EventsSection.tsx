@@ -38,19 +38,21 @@ export default function EventsSection() {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
-          <motion.span
-            className="label-caps text-moss mb-5 block"
+          <motion.div
+            className="mb-4 inline-block"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.7, ease }}
           >
-            What&apos;s Happening at SsaRanga?
-          </motion.span>
-          <FilterText as="h2" variant="melt" className="text-ink mb-5">
+            <span className="label-caps text-moss block">
+              What&apos;s Happening at SsaRanga?
+            </span>
+          </motion.div>
+          <FilterText as="h2" variant="melt" className="text-ink mb-5" duration={1.1}>
             Upcoming Events
           </FilterText>
-          <p className="text-ink/60 text-lg font-light max-w-xl mx-auto">
+          <p className="text-ink/80 text-base sm:text-lg font-light max-w-xl mx-auto leading-relaxed">
             Discover upcoming workshops, community gatherings and special
             experiences.
           </p>
@@ -65,7 +67,7 @@ export default function EventsSection() {
               className="glass-light rounded-3xl p-8 card-hover block group cursor-pointer"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: false, margin: "-40px" }}
               transition={{ delay: i * 0.12, duration: 0.7, ease }}
             >
               <div className="mb-6 flex items-center justify-between">
@@ -134,7 +136,7 @@ export default function EventsSection() {
           className="mx-auto mt-12 max-w-xl px-6 text-center text-sm font-light text-ink/45"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
           New events and workshop dates will be announced here soon. Follow us

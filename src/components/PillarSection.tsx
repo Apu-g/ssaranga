@@ -2,12 +2,13 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
+import MorphImage from "./MorphImage";
 import FilterText from "./FilterText";
-import AnchorLink from "@/components/AnchorLink";
+import { scrollToSection } from "@/lib/scrollTo";
 
 export interface PillarConfig {
   id: string;
+  programSlug: string;
   kicker: string;
   heading: string;
   intro: string;
@@ -19,168 +20,131 @@ export interface PillarConfig {
   ctaLabel: string;
   image: string;
   imageAlt: string;
-  secondaryImage?: string;
 }
 
 export default function PillarSection({ config }: { config: PillarConfig }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, margin: "-60px" });
+
+  const handleCtaClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("ssaranga:select-program", { detail: config.programSlug })
+      );
+    }
+    scrollToSection("programs");
+  };
 
   return (
-    <>
-      {/* ── Intro + image ── */}
-      <section id={config.id} ref={ref} className="section-padding bg-paper">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+    <section
+      id={config.id}
+      ref={ref}
+      className="section-padding bg-paper relative overflow-hidden"
+    >
+      {/* Ambient background blur */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] max-w-[92vw] max-h-[92vw] rounded-full bg-sage/15 blur-[120px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Left Column: Focused Photo 1 with signature wavy morphing frame */}
           <motion.div
+            className="lg:col-span-5 flex flex-col items-center"
             initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative rounded-[2rem] overflow-hidden shadow-[var(--shadow-soft)] ring-1 ring-moss/10">
-              <Image
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px]">
+              {/* Outer decorative ambient glow */}
+              <div className="absolute -inset-3 rounded-[2.5rem] bg-gradient-to-tr from-moss/20 via-sage/25 to-cream/40 blur-xl opacity-70 pointer-events-none" />
+              <MorphImage
                 src={config.image}
                 alt={config.imageAlt}
-                width={1100}
-                height={1400}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover w-full h-auto"
+                preset="portrait"
+                parallax
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent" />
             </div>
-            {config.secondaryImage && (
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {[config.secondaryImage, config.image].map((src, i) => (
-                  <div key={`${src}-${i}`} className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                    <Image
-                      src={src}
-                      alt={config.imageAlt}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
           </motion.div>
 
+          {/* Right Column: Heading, Narrative, Chips & Approach Highlights */}
           <motion.div
+            className="lg:col-span-7 flex flex-col justify-center"
             initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="label-caps text-moss mb-4 block">{config.kicker}</span>
-            <FilterText as="h2" variant="melt" className="text-ink mb-6" duration={2}>
+            <div className="mb-3">
+              <span className="label-caps text-moss block">
+                {config.kicker}
+              </span>
+            </div>
+            <FilterText as="h2" variant="melt" className="text-ink mb-4" duration={1.1}>
               {config.heading}
             </FilterText>
-            <p className="text-ink/65 font-light leading-relaxed text-base md:text-lg">
+
+            <p className="text-ink/80 font-light leading-relaxed text-base sm:text-lg mb-6">
               {config.intro}
             </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ── What we nurture / explore / create space for ── */}
-      <section className="section-padding bg-cream relative overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] max-w-[90vw] max-h-[90vw] rounded-full bg-sage/20 blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <motion.div
-            className="text-center mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="label-caps text-moss mb-4 block">
-              {config.chipsTitle}
-            </span>
-            <FilterText as="h2" variant="turbulence" className="text-ink" duration={2}>
-              What we nurture
-            </FilterText>
-          </motion.div>
+            {/* Chips Box: What We Nurture / Explore */}
+            <div className="mb-6 rounded-2xl glass-light p-4 sm:p-5 border border-moss/15">
+              <span className="label-caps text-moss text-xs block mb-3 font-semibold">
+                {config.chipsTitle}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {config.chips.map((chip) => (
+                  <span
+                    key={chip}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-moss/20 text-ink/80 text-xs sm:text-sm font-medium shadow-xs"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 20 20" fill="none" className="text-moss" aria-hidden="true">
+                      <path d="M3 10.5L8 15L17 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-          <div className="flex flex-wrap justify-center gap-3">
-            {config.chips.map((chip, i) => (
-              <motion.span
-                key={chip}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-paper border border-moss/15 text-ink/80 text-sm md:text-base font-light shadow-[var(--shadow-card)] card-hover"
-                initial={{ opacity: 0, y: 16, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ delay: i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            {/* Approach takeaway */}
+            <div className="mb-7 pl-4 border-l-2 border-moss/40 space-y-1">
+              <p className="text-moss text-xs font-semibold uppercase tracking-wider">
+                {config.approachTitle}
+              </p>
+              <p className="text-ink/70 text-sm font-light leading-relaxed">
+                {config.approachRows[0]}
+              </p>
+              {config.approachHighlight && (
+                <p className="text-moss font-medium text-sm sm:text-base italic pt-1" style={{ fontFamily: "var(--font-heading)" }}>
+                  {config.approachHighlight}
+                </p>
+              )}
+            </div>
+
+            {/* Direct CTA -> navigates to this domain's program */}
+            <div>
+              <a
+                href="#programs"
+                onClick={handleCtaClick}
+                className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-moss text-white font-semibold text-sm tracking-wide overflow-hidden transition-all duration-300 hover:bg-deep-forest hover:shadow-[0_10px_35px_rgba(0,138,199,0.35)] hover:-translate-y-0.5 cursor-pointer"
               >
-                <span className="text-moss" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 10.5L8 15L17 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                {chip}
-              </motion.span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Our approach ── */}
-      <section className="section-padding bg-paper">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.span
-            className="label-caps text-moss mb-4 block"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
-          >
-            {config.approachTitle}
-          </motion.span>
-          <FilterText as="h2" variant="melt" className="text-ink mb-7" duration={2}>
-            Engaged, not lectured
-          </FilterText>
-
-          <div className="space-y-5 text-ink/65 font-light leading-relaxed text-base md:text-lg">
-            {config.approachRows.map((row, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {row}
-              </motion.p>
-            ))}
-          </div>
-
-          {config.approachHighlight && (
-            <motion.p
-              className="text-moss text-xl md:text-2xl mt-8"
-              style={{ fontFamily: "var(--font-heading)" }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-            >
-              {config.approachHighlight}
-            </motion.p>
-          )}
-
-          <motion.div
-            className="mt-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-          >
-            <AnchorLink
-              id="programs"
-              className="group relative inline-flex items-center gap-2 px-9 py-4 rounded-full bg-moss text-white font-semibold tracking-wide overflow-hidden transition-all duration-500 hover:shadow-[0_10px_40px_rgba(0,138,199,0.45)] hover:-translate-y-0.5 cursor-pointer"
-            >
-              <span className="relative z-10">{config.ctaLabel}</span>
-              <span className="cta-sheen" />
-            </AnchorLink>
+                <span className="relative z-10">{config.ctaLabel}</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="relative z-10 transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="cta-sheen" />
+              </a>
+            </div>
           </motion.div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

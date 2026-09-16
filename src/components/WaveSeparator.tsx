@@ -72,13 +72,13 @@ export default function WaveSeparator({ from, to, flip = false, className = "" }
     <div
       ref={wrapRef}
       aria-hidden="true"
-      className={`relative w-full leading-[0] ${className}`}
+      className={`relative w-full leading-[0] overflow-hidden ${className}`}
       style={{ background: from }}
     >
       <svg
         viewBox="0 0 100 12"
         preserveAspectRatio="none"
-        className="block w-full h-[clamp(48px,8vw,110px)] overflow-visible"
+        className="block w-full h-[clamp(20px,3.5vw,40px)] overflow-visible"
         style={flip ? { transform: "scaleY(-1)" } : undefined}
       >
         <path ref={pathRef} d={FLAT} fill={to} />

@@ -12,7 +12,7 @@ const beliefs = [
 
 export default function BeliefSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, margin: "-60px" });
 
   return (
     <section ref={ref} className="section-padding bg-cream relative overflow-hidden">
@@ -23,11 +23,15 @@ export default function BeliefSection() {
         <motion.div
           className="text-center mb-14 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label-caps text-moss mb-4 block">What We Believe</span>
-          <FilterText as="h2" variant="turbulence" className="text-ink" duration={2.2}>
+          <div className="mb-4">
+            <span className="label-caps text-moss block">
+              What We Believe
+            </span>
+          </div>
+          <FilterText as="h2" variant="turbulence" className="text-ink" duration={1.1}>
             Our beliefs shape everything we do
           </FilterText>
         </motion.div>
@@ -37,10 +41,10 @@ export default function BeliefSection() {
           {beliefs.map((belief, i) => (
             <motion.div
               key={belief}
-              className="glass-light rounded-3xl p-8 md:p-12 card-hover text-center"
-              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              className="glass-light rounded-3xl p-8 md:p-12 card-hover text-center border border-moss/15"
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: false, margin: "-40px" }}
               transition={{
                 delay: i * 0.12,
                 duration: 0.7,
@@ -48,7 +52,7 @@ export default function BeliefSection() {
               }}
             >
               <span
-                className="block text-5xl md:text-6xl font-light text-moss/20 select-none mb-6"
+                className="block text-5xl md:text-6xl font-light text-moss/30 select-none mb-6"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 0{i + 1}
@@ -64,10 +68,10 @@ export default function BeliefSection() {
         </div>
 
         <motion.p
-          className="pull-quote text-center text-ink/70 max-w-3xl mx-auto mt-16"
+          className="pull-quote text-center text-ink/80 max-w-3xl mx-auto mt-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           At SsaRanga, we nurture the person within — not just the role they
           play in life.

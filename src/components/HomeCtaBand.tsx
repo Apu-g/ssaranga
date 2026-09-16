@@ -16,12 +16,18 @@ export default function HomeCtaBand() {
         className="relative z-10 max-w-3xl mx-auto text-center"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <span className="label-caps text-moss mb-5 block">An Invitation</span>
-        <h2 className="text-ink mb-6">Your journey deserves a space.</h2>
-        <p className="text-ink/65 text-lg font-light mb-8 max-w-xl mx-auto leading-relaxed">
+        <div className="mb-5 inline-block">
+          <span className="label-caps text-moss block">
+            An Invitation
+          </span>
+        </div>
+        <h2 className="text-ink mb-6 text-3xl sm:text-4xl md:text-5xl font-normal">
+          Your journey deserves a space.
+        </h2>
+        <p className="text-ink/80 text-lg sm:text-xl font-light mb-8 max-w-xl mx-auto leading-relaxed">
           Maybe that space begins with a conversation. Maybe with a story.
           Maybe with a pause. Maybe it begins at SsaRanga.
         </p>
@@ -35,7 +41,7 @@ export default function HomeCtaBand() {
             <span className="cta-sheen" />
           </AnchorLink>
           <AnchorLink
-            id="about"
+            id="founder"
             className="inline-flex items-center px-9 py-3.5 rounded-full border border-moss/30 glass-light text-ink font-medium tracking-wide hover:border-moss hover:text-moss transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
           >
             Discover Our Story

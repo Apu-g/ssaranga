@@ -46,19 +46,21 @@ export default function ActivitiesSection() {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14 md:mb-16">
-          <motion.span
-            className="label-caps text-moss mb-5 block"
+          <motion.div
+            className="mb-4 inline-block"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.7, ease }}
           >
-            Activities
-          </motion.span>
-          <FilterText as="h2" variant="turbulence" className="text-ink mb-5">
+            <span className="label-caps text-moss block">
+              Activities & Modalities
+            </span>
+          </motion.div>
+          <FilterText as="h2" variant="turbulence" className="text-ink mb-5" duration={1.1}>
             What happens at SsaRanga?
           </FilterText>
-          <p className="text-ink/60 text-lg font-light max-w-xl mx-auto">
+          <p className="text-ink/80 text-base sm:text-lg font-light max-w-xl mx-auto leading-relaxed">
             SsaRanga is not about sitting and listening to a lecture. It is
             about experiencing. Depending on the program, sessions may include:
           </p>
@@ -72,7 +74,7 @@ export default function ActivitiesSection() {
               className="glass-light rounded-3xl p-8 card-hover"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: false, margin: "-40px" }}
               transition={{ delay: (i % 3) * 0.1, duration: 0.7, ease }}
             >
               <div className="w-14 h-14 rounded-2xl bg-moss/10 border border-moss/20 flex items-center justify-center text-3xl mb-5">

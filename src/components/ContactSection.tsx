@@ -40,7 +40,7 @@ export default function ContactSection({
   showHeader?: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, { once: false, margin: "-60px" });
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({
     name: "",
@@ -88,23 +88,25 @@ export default function ContactSection({
           <motion.div
             className="text-center mb-12 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="label-caps text-moss mb-4 block">
-              Let&apos;s Begin the Conversation
-            </span>
-            <h2 className="text-ink mb-6">We&apos;d love to hear from you</h2>
+            <div className="mb-4 inline-block">
+              <span className="label-caps text-moss block">
+                Let&apos;s Begin the Conversation
+              </span>
+            </div>
+            <h2 className="text-ink mb-6 text-3xl sm:text-4xl md:text-5xl font-normal">We&apos;d love to hear from you</h2>
 
             {/* Registration badge */}
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-moss/10 border border-moss/30 backdrop-blur-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-moss animate-pulse" />
-              <span className="label-caps text-moss text-xs">
+              <span className="label-caps text-moss text-xs font-semibold">
                 Registrations are now open!
               </span>
             </div>
 
-            <p className="text-ink/65 text-lg max-w-2xl mx-auto font-light">
+            <p className="text-ink/80 text-lg sm:text-xl max-w-2xl mx-auto font-light leading-relaxed">
               Whether you are exploring SsaRanga for yourself, your child or
               your community, we&apos;re here to help you find the right space
               to begin.
@@ -116,7 +118,7 @@ export default function ContactSection({
         <motion.div
           className="rounded-[2rem] p-8 md:p-12 max-w-2xl mx-auto bg-white/75 backdrop-blur-xl border border-moss/15 shadow-[0_24px_70px_rgba(0,59,92,0.08)]"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="text-center mb-8">
@@ -340,8 +342,8 @@ export default function ContactSection({
         <motion.div
           className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.45, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ delay: 0.35, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           {[
             {

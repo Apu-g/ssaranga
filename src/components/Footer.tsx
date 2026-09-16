@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import InstagramIcon from "@/components/InstagramIcon";
 import AnchorLink from "@/components/AnchorLink";
+import { scrollToSection } from "@/lib/scrollTo";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -13,123 +14,259 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
   );
 }
 
-const quickLinks = [
-  { label: "Home", id: "home" },
-  { label: "About", id: "about" },
-  { label: "Founder", id: "founder" },
-  { label: "Young Minds", id: "young-minds" },
-  { label: "Women", id: "women" },
-  { label: "Elders", id: "elders" },
-  { label: "Programs", id: "programs" },
-  { label: "How We Work", id: "experience" },
-  { label: "Activities", id: "activities" },
-  { label: "Moments", id: "moments" },
-  { label: "Testimonials", id: "testimonials" },
-  { label: "Events", id: "events" },
-  { label: "Contact", id: "contact" },
-];
-
 export default function Footer() {
   return (
-    <footer className="bg-paper pt-16 pb-10 px-6 border-t border-moss/15 relative overflow-hidden">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] max-w-[94vw] max-h-[94vw] rounded-full bg-sage/15 blur-[110px] pointer-events-none" />
+    <footer
+      className="relative overflow-hidden text-white pt-16 pb-12 px-6 border-t border-moss/30"
+      style={{
+        background: "linear-gradient(180deg, #003B5C 0%, #002236 100%)",
+      }}
+    >
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 left-1/4 w-[38rem] h-[38rem] rounded-full bg-moss/10 blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[38rem] h-[38rem] rounded-full bg-sage/10 blur-[130px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Top row: brand + quick links */}
-        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 mb-12 text-center md:text-left">
-          {/* Brand */}
-          <div className="flex flex-col items-center md:items-start gap-4 max-w-sm">
-            <AnchorLink
-              id="home"
-              className="flex items-center gap-4 shrink-0 group cursor-pointer"
-              ariaLabel="SsaRanga — Home"
-            >
-              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-moss/25 transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(141,223,234,0.5)]">
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Top Feature Spotlight: Founder & Brand Mission */}
+        <div className="rounded-3xl p-6 sm:p-8 mb-14 bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            {/* Logo & Vision */}
+            <div className="lg:col-span-5 flex flex-col items-start gap-3">
+              <AnchorLink id="home" className="flex items-center gap-3.5 group cursor-pointer">
+                <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-sage/40 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src="/images/logo-main.jpeg"
+                    alt="SsaRanga Logo"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </span>
+                <div>
+                  <span className="text-white text-2xl font-light tracking-[0.06em] block" style={{ fontFamily: "var(--font-heading)" }}>
+                    SsaRanga · <span className="text-sage text-xl font-normal">ಸಾರಂಗ</span>
+                  </span>
+                  <span className="text-sage/80 text-xs tracking-widest uppercase label-caps">
+                    The Mind Spa
+                  </span>
+                </div>
+              </AnchorLink>
+              <p className="text-cream/80 text-sm font-light leading-relaxed max-w-md mt-1">
+                A sanctuary designed for all generations to pause, express, reflect, and discover what lies within. Nurture Within • Grow Beyond.
+              </p>
+            </div>
+
+            {/* Founder Spotlight with Cropped Photo */}
+            <div className="lg:col-span-4 flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
+              <div className="relative h-14 w-14 shrink-0 rounded-2xl overflow-hidden ring-2 ring-sage/30 shadow-md">
                 <Image
-                  src="/images/logo-main.jpeg"
-                  alt="SsaRanga"
+                  src="/images/founder.jpeg"
+                  alt="Sonia Sreeraj — Founder"
                   fill
                   sizes="56px"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
-              </span>
-              <span
-                className="text-deep-forest text-3xl tracking-[0.08em]"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >SsaRanga
-            </span>
-            </AnchorLink>
-            <p
-              className="text-moss text-base italic font-light"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Nurture Within. Grow Beyond.
-            </p>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />
+                  <p className="text-white text-sm font-medium leading-none">
+                    Sonia Sreeraj
+                  </p>
+                </div>
+                <p className="text-sage text-xs font-light mt-0.5">Founder, SsaRanga</p>
+                <p className="text-white/60 text-xs font-light italic truncate mt-1">
+                  &ldquo;Every story matters. Every mind has potential.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Social Connect Icons */}
+            <div className="lg:col-span-3 flex lg:justify-end items-center gap-3">
+              <a
+                href="https://www.instagram.com/ssaranga_mindspa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="h-11 w-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-sage hover:bg-moss hover:text-white hover:border-moss transition-all duration-300 hover:-translate-y-1 shadow-sm"
+              >
+                <InstagramIcon className="h-5 w-5" />
+              </a>
+              <a
+                href="https://wa.me/9180168155"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="h-11 w-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm"
+              >
+                <WhatsAppIcon className="h-5 w-5" />
+              </a>
+              <a
+                href="mailto:ssarangamindspa@gmail.com"
+                aria-label="Email"
+                className="h-11 w-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-sage hover:bg-moss hover:text-white hover:border-moss transition-all duration-300 hover:-translate-y-1 shadow-sm"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                  <rect x="3" y="5" width="18" height="14" rx="3" />
+                  <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Structured 4-Column Navigation Links */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14 text-sm">
+          {/* Col 1: About & Story */}
+          <div>
+            <h4 className="label-caps text-sage mb-4 text-xs font-semibold tracking-wider">
+              About SsaRanga
+            </h4>
+            <ul className="space-y-2.5 font-light text-cream/75">
+              <li>
+                <AnchorLink id="home" className="hover:text-sage transition-colors duration-200">
+                  Home & Overview
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="founder" className="hover:text-sage transition-colors duration-200">
+                  Meet Founder Sonia Sreeraj
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="founder" className="hover:text-sage transition-colors duration-200">
+                  Founder&apos;s Message
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="about" className="hover:text-sage transition-colors duration-200">
+                  Why the Name SsaRanga?
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="about" className="hover:text-sage transition-colors duration-200">
+                  Vision & Philosophy
+                </AnchorLink>
+              </li>
+            </ul>
           </div>
 
-          {/* Quick links */}
-          <nav className="flex flex-col items-center md:items-end gap-2.5">
-            <span className="label-caps text-ink/40 mb-1">Navigate</span>
-            {quickLinks.map((link) => (
-              <AnchorLink
-                key={link.id}
-                id={link.id}
-                className="text-ink/70 hover:text-moss transition-colors duration-300 font-light cursor-pointer"
-              >
-                {link.label}
-              </AnchorLink>
-            ))}
-          </nav>
+          {/* Col 2: Three Spaces & Programs */}
+          <div>
+            <h4 className="label-caps text-sage mb-4 text-xs font-semibold tracking-wider">
+              Programs & Spaces
+            </h4>
+            <ul className="space-y-2.5 font-light text-cream/75">
+              <li>
+                <AnchorLink id="young-minds" className="hover:text-sage transition-colors duration-200">
+                  🌱 Young Minds Program
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="women" className="hover:text-sage transition-colors duration-200">
+                  🌸 Women — Rooted & Rising
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="elders" className="hover:text-sage transition-colors duration-200">
+                  🌼 Elders — Every Story Matters
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="programs" className="hover:text-sage transition-colors duration-200">
+                  ✨ Special Theme Workshops
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="programs" className="hover:text-sage transition-colors duration-200">
+                  🌿 One-to-One Mind Spa Sessions
+                </AnchorLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Experience & Activities */}
+          <div>
+            <h4 className="label-caps text-sage mb-4 text-xs font-semibold tracking-wider">
+              Experience & Gatherings
+            </h4>
+            <ul className="space-y-2.5 font-light text-cream/75">
+              <li>
+                <AnchorLink id="experience" className="hover:text-sage transition-colors duration-200">
+                  How SsaRanga Works (5 Steps)
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="activities" className="hover:text-sage transition-colors duration-200">
+                  Mind Spa Activities
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="moments" className="hover:text-sage transition-colors duration-200">
+                  SsaRanga Moments Gallery
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink id="events" className="hover:text-sage transition-colors duration-200">
+                  Upcoming Community Events
+                </AnchorLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Contact & Registration */}
+          <div>
+            <h4 className="label-caps text-sage mb-4 text-xs font-semibold tracking-wider">
+              Connect With Us
+            </h4>
+            <div className="space-y-3 font-light text-cream/75 text-xs sm:text-sm">
+              <p className="flex items-center gap-2">
+                <span className="text-sage">📍</span>
+                <span>Bengaluru, Karnataka, India</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-sage">📞</span>
+                <a href="tel:+9180168155" className="hover:text-sage transition-colors">
+                  +91 9180168155
+                </a>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-sage">✉️</span>
+                <a href="mailto:ssarangamindspa@gmail.com" className="hover:text-sage transition-colors break-all">
+                  ssarangamindspa@gmail.com
+                </a>
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-moss hover:bg-sage hover:text-deep-forest text-white text-xs font-semibold transition-all duration-300 shadow-md cursor-pointer"
+                >
+                  <span>Send an Enquiry</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Divider */}
-        <motion.div
-          className="h-px bg-gradient-to-r from-transparent via-moss/25 to-transparent mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        />
+        <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-8" />
 
-        {/* Bottom */}
-        <div className="flex flex-col items-center gap-5 mb-8">
-          <div className="flex items-center gap-4">
-            <a
-              href="https://www.instagram.com/ssaranga_mindspa"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow SsaRanga on Instagram"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
-            >
-              <InstagramIcon className="h-5 w-5" />
-            </a>
-            <a
-              href="https://wa.me/9180168155"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat with SsaRanga on WhatsApp"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
-            >
-              <WhatsAppIcon className="h-5 w-5" />
-            </a>
-            <a
-              href="mailto:ssarangamindspa@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Email SsaRanga"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-moss/30 text-ink/70 transition-all duration-300 hover:border-moss hover:text-moss hover:-translate-y-0.5 bg-white/60"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="14" rx="3" />
-                <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-          </div>
-          <p className="text-ink/40 text-xs tracking-wide">
-            &copy; {new Date().getFullYear()} SsaRanga. All Rights Reserved.
-            <span className="mx-2 text-moss/30">·</span>
-            <span className="text-ink/30">Bengaluru, India</span>
+        {/* Bottom Bar: Copyright & Back to Top */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/50 font-light">
+          <p>
+            &copy; {new Date().getFullYear()} SsaRanga (The Mind Spa). All Rights Reserved.
           </p>
+          <p className="italic text-sage/70 font-normal" style={{ fontFamily: "var(--font-heading)" }}>
+            Nurture Within • Grow Beyond
+          </p>
+          <button
+            onClick={() => scrollToSection("top")}
+            className="inline-flex items-center gap-1.5 text-cream/70 hover:text-sage transition-colors duration-200 cursor-pointer"
+          >
+            <span>Back to Top</span>
+            <span>↑</span>
+          </button>
         </div>
       </div>
     </footer>

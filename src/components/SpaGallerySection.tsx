@@ -46,7 +46,7 @@ function MarqueeRow({ reverse = false }: { reverse?: boolean }) {
 
 export default function SpaGallerySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, { once: false, margin: "-60px" });
 
   return (
     <section
@@ -58,16 +58,18 @@ export default function SpaGallerySection() {
       <motion.div
         className="mb-14 md:mb-20 px-6 text-center"
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.7, ease }}
       >
-        <span className="label-caps text-moss mb-4 block">
-          SsaRanga Moments
-        </span>
-        <FilterText as="h2" variant="melt" className="text-ink" duration={2.2}>
+        <div className="mb-4">
+          <span className="label-caps text-moss block">
+            SsaRanga Moments
+          </span>
+        </div>
+        <FilterText as="h2" variant="melt" className="text-ink mb-4" duration={1.1}>
           Every experience becomes a story
         </FilterText>
-        <p className="mx-auto mt-5 max-w-xl text-lg font-light text-ink/60">
+        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg font-light text-ink/75 leading-relaxed">
           Opening ceremonies, workshops, Young Minds activities, Women&apos;s
           sessions, Elders&apos; gatherings, community events and special
           celebrations.
