@@ -78,7 +78,7 @@ export default function Footer() {
                 </div>
                 <p className="text-sage text-xs font-light mt-0.5">Founder, SsaRanga</p>
                 <p className="text-white/60 text-xs font-light italic truncate mt-1">
-                  &ldquo;Every story matters. Every mind has potential.&rdquo;
+                  &ldquo;Nurture Within &bull; Grow Beyond&rdquo;
                 </p>
               </div>
             </div>

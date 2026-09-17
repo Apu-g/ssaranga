@@ -16,9 +16,9 @@ const REVEAL_S = 1.15;
 
 /* Premium spa/nature photos cycling slowly behind the loader */
 const LOADER_PHOTOS = [
-  "/images/spa-gallery/1.jpg",
+  "/images/desktopbackground.png",
   "/images/founder.jpeg",
-  "/images/kids1.jpeg",
+  "/images/moments/WhatsApp Image 2026-09-16 at 9.16.39 PM.jpeg",
 ];
 
 interface Props {
