@@ -113,7 +113,7 @@ export default function Navbar() {
               src="/images/logo-main.jpeg"
               alt="SsaRanga"
               fill
-              wrapperClassName="absolute inset-0"
+
               sizes="48px"
               className="object-cover"
               priority
@@ -168,7 +168,7 @@ export default function Navbar() {
               src="/images/logo-main.jpeg"
               alt="SsaRanga"
               fill
-              wrapperClassName="absolute inset-0"
+
               sizes="40px"
               className="object-cover"
               priority

@@ -38,7 +38,7 @@ export default function Footer() {
                     src="/images/logo-main.jpeg"
                     alt="SsaRanga Logo"
                     fill
-                    wrapperClassName="absolute inset-0"
+
                     sizes="48px"
                     className="object-cover"
                   />
@@ -64,7 +64,7 @@ export default function Footer() {
                   src="/images/founder.jpeg"
                   alt="Sonia Sreeraj — Founder"
                   fill
-                  wrapperClassName="absolute inset-0"
+
                   sizes="56px"
                   className="object-cover object-top"
                 />

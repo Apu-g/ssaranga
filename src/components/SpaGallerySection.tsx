@@ -33,7 +33,7 @@ function MarqueeRow({ reverse = false }: { reverse?: boolean }) {
                   src={src}
                   alt="Inside SsaRanga — The Mind Spa"
                   fill
-                  wrapperClassName="absolute inset-0"
+
                   sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, 352px"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                 />

@@ -248,7 +248,7 @@ export default function ProgramsSection({
                     src={activeProgram.image}
                     alt={activeProgram.imageAlt}
                     fill
-                    wrapperClassName="absolute inset-0"
+
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 420px"
                     className="object-cover transition-transform duration-700 hover:scale-105"
                   />
