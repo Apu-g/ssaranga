@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import BlurImage from "@/components/BlurImage";
 import { motion } from "framer-motion";
 import InstagramIcon from "@/components/InstagramIcon";
 import AnchorLink from "@/components/AnchorLink";
@@ -34,10 +34,11 @@ export default function Footer() {
             <div className="lg:col-span-5 flex flex-col items-start gap-3">
               <AnchorLink id="home" className="flex items-center gap-3.5 group cursor-pointer">
                 <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-sage/40 transition-transform duration-300 group-hover:scale-105">
-                  <Image
+                  <BlurImage
                     src="/images/logo-main.jpeg"
                     alt="SsaRanga Logo"
                     fill
+                    wrapperClassName="absolute inset-0"
                     sizes="48px"
                     className="object-cover"
                   />
@@ -59,10 +60,11 @@ export default function Footer() {
             {/* Founder Spotlight with Cropped Photo */}
             <div className="lg:col-span-4 flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
               <div className="relative h-14 w-14 shrink-0 rounded-2xl overflow-hidden ring-2 ring-sage/30 shadow-md">
-                <Image
+                <BlurImage
                   src="/images/founder.jpeg"
                   alt="Sonia Sreeraj — Founder"
                   fill
+                  wrapperClassName="absolute inset-0"
                   sizes="56px"
                   className="object-cover object-top"
                 />

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
+import BlurImage from "./BlurImage";
 import FilterText from "./FilterText";
 
 const SPA_IMAGES = [
@@ -27,13 +27,14 @@ function MarqueeRow({ reverse = false }: { reverse?: boolean }) {
             {groupImages.map((src, i) => (
               <div
                 key={`${track}-${i}`}
-                className="group relative aspect-[4/3] w-60 sm:w-72 md:w-[24rem] shrink-0 overflow-hidden rounded-3xl bg-moss/10 ring-1 ring-ink/5 shadow-[var(--shadow-card)]"
+                className="group relative aspect-[4/3] w-52 sm:w-64 md:w-[22rem] shrink-0 rounded-3xl overflow-hidden bg-moss/10 ring-1 ring-ink/5 shadow-[var(--shadow-card)]"
               >
-                <Image
+                <BlurImage
                   src={src}
                   alt="Inside SsaRanga — The Mind Spa"
                   fill
-                  sizes="(max-width: 640px) 240px, (max-width: 768px) 288px, 384px"
+                  wrapperClassName="absolute inset-0"
+                  sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, 352px"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

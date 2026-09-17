@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { hasIntroStarted } from "@/lib/intro";
 import { scrollToSection } from "@/lib/scrollTo";
 import AnchorLink from "@/components/AnchorLink";
+import BlurImage from "@/components/BlurImage";
 
 const navLinks = [
   { label: "Home", id: "home" },
@@ -109,10 +109,11 @@ export default function Navbar() {
           ariaLabel="SsaRanga — Home"
         >
           <span className="relative h-10 w-10 md:h-12 md:w-12 shrink-0 overflow-hidden rounded-full ring-1 ring-moss/30">
-            <Image
+            <BlurImage
               src="/images/logo-main.jpeg"
               alt="SsaRanga"
               fill
+              wrapperClassName="absolute inset-0"
               sizes="48px"
               className="object-cover"
               priority
@@ -163,10 +164,11 @@ export default function Navbar() {
           ariaLabel="SsaRanga — Home"
         >
           <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-moss/30">
-            <Image
+            <BlurImage
               src="/images/logo-main.jpeg"
               alt="SsaRanga"
               fill
+              wrapperClassName="absolute inset-0"
               sizes="40px"
               className="object-cover"
               priority

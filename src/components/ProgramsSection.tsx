@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import Image from "next/image";
+import BlurImage from "./BlurImage";
 import FilterText from "./FilterText";
 import { scrollToSection } from "@/lib/scrollTo";
 
@@ -244,10 +244,11 @@ export default function ProgramsSection({
               {/* Photo 2 Showcase */}
               <div className="lg:col-span-5">
                 <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] w-full rounded-[2rem] overflow-hidden ring-1 ring-moss/20 shadow-lg bg-cream">
-                  <Image
+                  <BlurImage
                     src={activeProgram.image}
                     alt={activeProgram.imageAlt}
                     fill
+                    wrapperClassName="absolute inset-0"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 420px"
                     className="object-cover transition-transform duration-700 hover:scale-105"
                   />
