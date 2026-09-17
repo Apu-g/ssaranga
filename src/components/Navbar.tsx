@@ -118,12 +118,6 @@ export default function Navbar() {
               priority
             />
           </span>
-          <span
-            className="ml-3 text-deep-forest text-xl tracking-[0.08em] font-medium"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            ಸಾರಂಗ
-          </span>
         </AnchorLink>
 
         {/* Divider */}
@@ -177,12 +171,6 @@ export default function Navbar() {
               className="object-cover"
               priority
             />
-          </span>
-          <span
-            className="ml-2.5 text-deep-forest text-lg tracking-[0.06em]"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            ಸಾರಂಗ
           </span>
         </AnchorLink>
 

@@ -71,13 +71,24 @@ export default function Hero({ started }: { started: boolean }) {
       {/* ─── Background ─── */}
       <div ref={bgRef} className="absolute inset-[-6%] will-change-transform pointer-events-none">
         <div className="absolute inset-0 ken-burns">
+          {/* Desktop background */}
           <Image
-            src="/images/spa-gallery/1.jpg"
+            src="/images/desktopbackground.png"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover hidden sm:block"
+            aria-hidden="true"
+          />
+          {/* Mobile background */}
+          <Image
+            src="/images/phonebackground.jpeg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover block sm:hidden"
             aria-hidden="true"
           />
         </div>

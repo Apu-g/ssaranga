@@ -86,7 +86,7 @@ export default function FounderSection() {
                 <div>
                   <span className="label-caps text-moss text-xs block mb-1">Founder&apos;s Message</span>
                   <p className="text-ink text-sm sm:text-base font-light italic leading-relaxed text-ink/80">
-                    &ldquo;In a world that is constantly moving, I felt the need for a space where we could simply pause, breathe, reflect and reconnect with ourselves.&rdquo;
+                    &ldquo;:A thought . A dream. A journey.&rdquo;
                   </p>
                 </div>
                 <button

@@ -4,69 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import FilterText from "./FilterText";
 
-const testimonials = [
-  {
-    quote: "A beautiful space to pause and reflect.",
-    name: "A visitor",
-    role: "SsaRanga Community",
-  },
-  {
-    quote: "The session created meaningful conversations.",
-    name: "A participant",
-    role: "SsaRanga Community",
-  },
-  {
-    quote:
-      "My child really enjoyed the activities and came back with so much enthusiasm.",
-    name: "A parent",
-    role: "SsaRanga Community",
-  },
-];
-
 const ease = [0.16, 1, 0.3, 1] as const;
-
-function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[number] }) {
-  return (
-    <div className="testimonial-card shrink-0 w-[20rem] sm:w-[22rem] md:w-[26rem]">
-      <div className="glass-light glass-sheen rounded-3xl p-7 md:p-9 card-hover h-full flex flex-col">
-        <svg
-          className="mb-4 h-8 w-8 text-gold/50"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M11.3 5.2C7.5 7.1 5 10.5 5 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C7.8 8.3 9.4 6.5 11.3 5.2zm10 0C17.5 7.1 15 10.5 15 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C17.8 8.3 19.4 6.5 21.3 5.2z" />
-        </svg>
-        <p className="pull-quote text-ink/75 leading-snug mb-6 flex-1">
-          {testimonial.quote}
-        </p>
-        <div className="border-t border-moss/10 pt-4">
-          <span className="label-caps text-moss block">{testimonial.name}</span>
-          <span className="text-ink/45 text-xs font-light mt-1 block">
-            {testimonial.role}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TestimonialRow({ reverse = false }: { reverse?: boolean }) {
-  const doubled = [...testimonials, ...testimonials];
-  return (
-    <div className="testimonial-marquee-row">
-      <div className={`testimonial-marquee-track ${reverse ? "reverse" : ""}`}>
-        {[0, 1].map((track) => (
-          <div key={track} className="testimonial-marquee-group">
-            {doubled.map((t, i) => (
-              <TestimonialCard key={`${track}-${i}`} testimonial={t} />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function TestimonialsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -97,25 +35,51 @@ export default function TestimonialsSection() {
         </p>
       </motion.div>
 
-      {/* Marquee rows — full-bleed with edge fades */}
+      {/* Madhavi's Featured Feedback Card */}
       <motion.div
-        className="relative"
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.3, duration: 0.9, ease }}
+        className="mx-auto max-w-2xl px-6 mb-12 md:mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.2, duration: 0.8, ease }}
       >
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-paper to-transparent md:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-paper to-transparent md:w-32" />
+        <div className="relative glass-light glass-sheen rounded-3xl p-8 md:p-10 shadow-[var(--shadow-card)] border border-moss/10">
+          {/* Decorative quote mark */}
+          <svg
+            className="mb-5 h-10 w-10 text-moss/40"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M11.3 5.2C7.5 7.1 5 10.5 5 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C7.8 8.3 9.4 6.5 11.3 5.2zm10 0C17.5 7.1 15 10.5 15 14.5c0 2.8 1.8 5 4 5s3.5-1.8 3.5-4-1.6-4-3.5-4c-.4 0-.8.1-1.2.2C17.8 8.3 19.4 6.5 21.3 5.2z" />
+          </svg>
 
-        <div className="space-y-6 md:space-y-8">
-          <TestimonialRow />
-          <TestimonialRow reverse />
+          <p className="text-ink/80 text-base sm:text-lg font-light leading-relaxed mb-8">
+            This experience brings a wonderful sense of relaxation and happiness. It makes me feel positive and refreshed, helping me take my mind off everyday stress. There is a unique feeling of peace and joy that stays with me even afterwards. Overall, it is a truly refreshing and uplifting experience.
+          </p>
+
+          {/* Author row */}
+          <div className="flex items-center gap-4 border-t border-moss/10 pt-5">
+            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-moss/20 shrink-0 bg-sage/20 flex items-center justify-center">
+              <span className="text-moss font-semibold text-lg">M</span>
+            </div>
+            <div>
+              <span className="label-caps text-moss block font-semibold">Madhavi</span>
+              <span className="text-ink/50 text-xs font-light mt-0.5 block">1-on-1 Session · SsaRanga</span>
+            </div>
+            {/* Verified badge */}
+            <div className="ml-auto flex items-center gap-1.5 text-xs text-moss/70 font-light">
+              <svg className="w-4 h-4 text-moss" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+              </svg>
+              <span>Shared with permission</span>
+            </div>
+          </div>
         </div>
       </motion.div>
 
       {/* Honest note */}
       <motion.p
-        className="mx-auto mt-12 max-w-xl px-6 text-center text-sm font-light text-ink/45"
+        className="mx-auto mt-4 max-w-xl px-6 text-center text-sm font-light text-ink/45"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

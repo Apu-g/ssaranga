@@ -42,8 +42,8 @@ export default function AboutStorySection() {
             >
               <div className="relative">
                 <MorphImage
-                  src="/images/spa-gallery/2.jpg"
-                  alt="A quiet moment at SsaRanga"
+                  src="/images/simplethought.jpeg"
+                  alt="Born from a simple thought — SsaRanga"
                   preset="wide"
                   parallax
                 />

@@ -6,11 +6,13 @@ import Image from "next/image";
 import FilterText from "./FilterText";
 
 const SPA_IMAGES = [
-  "/images/spa-gallery/1.jpg",
-  "/images/spa-gallery/2.jpg",
-  "/images/spa-gallery/3.jpg",
-  "/images/spa-gallery/4.jpg",
-  "/images/spa-gallery/5.jpg",
+  "/images/moments/WhatsApp Image 2026-09-16 at 9.16.39 PM.jpeg",
+  "/images/moments/WhatsApp Image 2026-09-16 at 9.16.40 PM (1).jpeg",
+  "/images/moments/WhatsApp Image 2026-09-16 at 9.16.40 PM (2).jpeg",
+  "/images/moments/WhatsApp Image 2026-09-16 at 9.16.40 PM.jpeg",
+  "/images/spa-gallery/WhatsApp Image 2026-09-16 at 9.16.38 PM.jpeg",
+  "/images/spa-gallery/WhatsApp Image 2026-09-16 at 9.16.39 PM (1).jpeg",
+  "/images/spa-gallery/WhatsApp Image 2026-09-16 at 9.16.39 PM.jpeg",
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;

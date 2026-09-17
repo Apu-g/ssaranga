@@ -14,8 +14,7 @@ import ProgramsSection from "@/components/ProgramsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ActivitiesSection from "@/components/ActivitiesSection";
 import SpaGallerySection from "@/components/SpaGallerySection";
-// TestimonialsSection code is preserved in codebase per request; view is nullified
-// import TestimonialsSection from "@/components/TestimonialsSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import EventsSection from "@/components/EventsSection";
 import HomeCtaBand from "@/components/HomeCtaBand";
 import ContactSection from "@/components/ContactSection";
@@ -102,9 +101,11 @@ export default function Home() {
 
       <MomentsCta />
 
-      {/* TestimonialsSection view nullified as requested while keeping code in codebase */}
-
       <WaveSeparator from="#F0FAFD" to="#C9F4F6" />
+
+      <TestimonialsSection />
+
+      <WaveSeparator from="#C9F4F6" to="#F0FAFD" flip />
 
       <EventsSection />
 
