@@ -44,7 +44,6 @@ export default function ContactSection({
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({
     name: "",
-    ageGroup: "",
     phone: "",
     email: "",
     program: "",
@@ -64,7 +63,6 @@ export default function ContactSection({
       setFormState("idle");
       setFormData({
         name: "",
-        ageGroup: "",
         phone: "",
         email: "",
         program: "",
@@ -172,32 +170,6 @@ export default function ContactSection({
                     className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink placeholder:text-ink/30 transition-all duration-300 focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
                     placeholder="Your name"
                   />
-                </div>
-
-                {/* Age Group */}
-                <div>
-                  <label
-                    htmlFor="ageGroup"
-                    className="block text-sm text-ink/70 mb-2 font-medium"
-                  >
-                    Age Group
-                  </label>
-                  <select
-                    id="ageGroup"
-                    value={formData.ageGroup}
-                    onChange={(e) =>
-                      setFormData({ ...formData, ageGroup: e.target.value })
-                    }
-                    className="w-full px-4 py-3 rounded-xl bg-paper/90 border border-moss/20 text-ink transition-all duration-300 appearance-none cursor-pointer focus:border-moss focus:ring-2 focus:ring-moss/20 outline-none"
-                    style={{ color: formData.ageGroup ? "#003B5C" : "#8CA6B4" }}
-                  >
-                    <option value="" disabled>
-                      Select an age group
-                    </option>
-                    <option value="Young Minds">Young Minds</option>
-                    <option value="Women">Women (18+)</option>
-                    <option value="Elders">Elders (55+)</option>
-                  </select>
                 </div>
 
                 {/* Phone Number */}

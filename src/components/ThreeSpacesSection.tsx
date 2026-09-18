@@ -59,7 +59,7 @@ export default function ThreeSpacesSection() {
             </span>
           </div>
           <FilterText as="h2" variant="melt" className="text-ink mb-4" duration={1.1}>
-            Three journeys, one SsaRanga
+            Three journeys, one Space
           </FilterText>
           <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg font-light text-ink/75 leading-relaxed">
             Young Minds, Women and Elders — connecting generations, one story at a time.

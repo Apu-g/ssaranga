@@ -31,7 +31,7 @@ export default function FounderSection() {
               <div className="absolute -inset-3 rounded-[2.5rem] bg-gradient-to-tr from-moss/25 via-sage/30 to-cream/50 blur-xl opacity-75 pointer-events-none" />
 
               <MorphImage
-                src="/images/founder.jpeg"
+                src="/images/founder.jpeg?v=2"
                 alt="Sonia Sreeraj — Founder of SsaRanga"
                 preset="portrait"
                 parallax
@@ -62,7 +62,7 @@ export default function FounderSection() {
               </span>
             </div>
             <FilterText as="h2" variant="melt" className="text-ink mb-5" duration={1.1}>
-              Curiosity led to a deeper question
+              Thought led to a deeper question
             </FilterText>
 
             <div className="space-y-4 text-ink/75 font-light leading-relaxed text-base md:text-lg">

@@ -59,14 +59,14 @@ export default function Footer() {
 
             {/* Founder Spotlight with Cropped Photo */}
             <div className="lg:col-span-4 flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
-              <div className="relative h-14 w-14 shrink-0 rounded-2xl overflow-hidden ring-2 ring-sage/30 shadow-md">
+              <div className="relative h-20 w-20 shrink-0 rounded-2xl overflow-hidden ring-2 ring-sage/30 shadow-md">
                 <BlurImage
-                  src="/images/founder.jpeg"
+                  src="/images/founder.jpeg?v=2"
                   alt="Sonia Sreeraj — Founder"
                   fill
 
-                  sizes="56px"
-                  className="object-cover object-top"
+                  sizes="80px"
+                  className="object-cover object-[50%_15%]"
                 />
               </div>
               <div className="flex-1 min-w-0">

@@ -17,7 +17,7 @@ const REVEAL_S = 1.15;
 /* Premium spa/nature photos cycling slowly behind the loader */
 const LOADER_PHOTOS = [
   "/images/desktopbackground.png",
-  "/images/founder.jpeg",
+  "/images/founder.jpeg?v=2",
   "/images/moments/WhatsApp Image 2026-09-16 at 9.16.39 PM.jpeg",
 ];
 
