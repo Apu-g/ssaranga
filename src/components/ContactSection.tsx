@@ -41,7 +41,9 @@ export default function ContactSection({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-60px" });
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
+  const [formState, setFormState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -54,13 +56,22 @@ export default function ContactSection({
     e.preventDefault();
     setFormState("sending");
 
-    // Simulate form submission (replace with actual endpoint)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setFormState("sent");
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const json = await res.json();
 
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setFormState("idle");
+      if (!res.ok || !json.success) {
+        if (json.configured === false) {
+          window.open(WHATSAPP_LINK, "_blank");
+        }
+        throw new Error(json.error || "Submission failed");
+      }
+
+      setFormState("sent");
       setFormData({
         name: "",
         phone: "",
@@ -68,7 +79,10 @@ export default function ContactSection({
         program: "",
         message: "",
       });
-    }, 4000);
+      setTimeout(() => setFormState("idle"), 4000);
+    } catch {
+      setFormState("error");
+    }
   };
 
   return (
@@ -277,6 +291,12 @@ export default function ContactSection({
                     "Send Enquiry"
                   )}
                 </button>
+                {formState === "error" && (
+                  <p className="text-center text-sm text-red-500 mt-2">
+                    Something went wrong. Please try again or reach us on
+                    WhatsApp.
+                  </p>
+                )}
               </form>
 
               {/* WhatsApp / Instagram — divider + inline buttons */}

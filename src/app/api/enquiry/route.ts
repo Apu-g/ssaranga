@@ -3,51 +3,33 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 /*
-  Sends a WhatsApp enquiry via the WhatsApp Business Cloud API.
+  Forwards leads to a Google Sheets via a Google Apps Script web app.
 
-  Configure these in `.env.local` (never commit them):
-    WHATSAPP_API_TOKEN   - Meta Graph API token
-    WHATSAPP_PHONE_ID    - The WhatsApp Business phone number ID (sender)
-    WHATSAPP_TO_NUMBER   - Destination number in E.164 format, e.g. 919663070522
+  Configure in `.env.local` (never commit it):
+    GOOGLE_SHEETS_APPS_SCRIPT_URL - the "/exec" URL of your deployed Apps Script
 
-  When env vars are missing, the route responds with { configured: false }
+  Paste the apps script (see scripts/google_sheets_leads.gs) into
+  script.google.com, deploy it as a web app with "Anyone" access,
+  and put the resulting URL here.
+
+  When the env var is missing the route responds with { configured: false }
   so the frontend can fall back to the wa.me link.
 */
 
-function buildMessage(data: {
-  name: string;
-  contact: string;
-  program: string;
-  message: string;
-}) {
-  const lines = [
-    "Hi SsaRanga! I'd like to make an enquiry.",
-    "",
-    `Name: ${data.name}`,
-    `Phone / Email: ${data.contact}`,
-    `Program Interest: ${data.program}`,
-  ];
-  if (data.message) {
-    lines.push("", `Message: ${data.message}`);
-  }
-  return lines.join("\n");
-}
-
 export async function POST(request: Request) {
-  const token = process.env.WHATSAPP_API_TOKEN;
-  const phoneId = process.env.WHATSAPP_PHONE_ID;
-  const to = process.env.WHATSAPP_TO_NUMBER;
+  const sheetsUrl = process.env.GOOGLE_SHEETS_APPS_SCRIPT_URL;
 
-  if (!token || !phoneId || !to) {
+  if (!sheetsUrl) {
     return NextResponse.json(
-      { configured: false, error: "WhatsApp API not configured" },
+      { configured: false, error: "Google Sheets not configured" },
       { status: 200 }
     );
   }
 
   let data: {
     name?: string;
-    contact?: string;
+    phone?: string;
+    email?: string;
     program?: string;
     message?: string;
   };
@@ -60,48 +42,48 @@ export async function POST(request: Request) {
     );
   }
 
-  const name = data.name?.trim() || "—";
-  const contact = data.contact?.trim() || "—";
-  const program = data.program?.trim() || "—";
+  const name = data.name?.trim() || "";
+  const phone = data.phone?.trim() || "";
+  const email = data.email?.trim() || "";
+  const program = data.program?.trim() || "";
   const message = data.message?.trim() || "";
 
-  if (!name || !contact || !program) {
+  if (!name || !phone || !program) {
     return NextResponse.json(
       { configured: true, success: false, error: "Missing required fields" },
       { status: 400 }
     );
   }
 
-  const body = buildMessage({ name, contact, program, message });
-
   try {
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/${phoneId}/messages`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messaging_product: "whatsapp",
-          to,
-          type: "text",
-          text: { body },
-        }),
-      }
-    );
+    const res = await fetch(sheetsUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        program,
+        message,
+        submittedAt: new Date().toISOString(),
+      }),
+    });
 
-    const result = await res.json();
+    const text = await res.text();
+    let result: { success?: boolean; error?: string } | null = null;
+    try {
+      result = JSON.parse(text);
+    } catch {
+      result = null;
+    }
 
-    if (!res.ok) {
+    if (!result || result.success !== true) {
+      const message = result?.error
+        ? result.error
+        : 'Google Sheets did not return a success response. Is the Apps Script web app deployed with "Anyone" access?';
       return NextResponse.json(
-        {
-          configured: true,
-          success: false,
-          error: result?.error?.message || "WhatsApp API error",
-        },
-        { status: res.status }
+        { configured: true, success: false, error: message },
+        { status: 502 }
       );
     }
 
